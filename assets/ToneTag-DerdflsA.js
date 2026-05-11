@@ -1,0 +1,1 @@
+import{j as r}from"./motion-DZSGaD9S.js";import{S as a}from"./index-BIkTTAvc.js";function p({tone:t="neutral",className:e="",children:n,testId:o}){return r.jsx("span",{"data-testid":o,className:`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-ds-caption font-mono tracking-wide ${a[t]} ${e}`,children:n})}export{p as T};

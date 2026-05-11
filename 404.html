@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+    <!-- Force dark native UI + WKWebView scrollview background to prevent white flash -->
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#070b14" />
+    <title>FLBot V2 Flagship</title>
+    <!-- LIFF SDK: async so it doesn't block HTML parsing -->
+    <link rel="preconnect" href="https://static.line-scdn.net" />
+    <link rel="dns-prefetch" href="//static.line-scdn.net" />
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js" async data-liff-sdk="true"></script>
+    <!-- Google Fonts: non-blocking (media=print trick) — avoids render-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
+    </noscript>
+    <style>
+      :root { color-scheme: dark; }
+      html, body { background: #070b14; }
+      /* Inline critical font stack — renders immediately before web fonts load */
+      body { margin: 0; font-family: "Plus Jakarta Sans", Inter, "Noto Sans TC", -apple-system, "PingFang TC", sans-serif; color: #e5e7eb; }
+      button, input, textarea { font: inherit; }
+    </style>
+    <script type="module" crossorigin src="./assets/index-BIkTTAvc.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/ui-YdmB7tzp.js">
+    <link rel="modulepreload" crossorigin href="./assets/motion-DZSGaD9S.js">
+    <link rel="modulepreload" crossorigin href="./assets/vendor-B5tOu6m9.js">
+    <link rel="modulepreload" crossorigin href="./assets/markdown-BhI693wm.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-Cfk9LgoV.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

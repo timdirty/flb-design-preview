@@ -1,0 +1,1 @@
+import{j as s}from"./motion-DZSGaD9S.js";import"./index-BIkTTAvc.js";import{T as t}from"./ToneTag-DerdflsA.js";import"./ui-YdmB7tzp.js";const e={success:"success",failed:"danger",pending:"warning",info:"info"};function m({status:n,label:o}){return s.jsx(t,{tone:e[n],children:o})}export{m as S};
