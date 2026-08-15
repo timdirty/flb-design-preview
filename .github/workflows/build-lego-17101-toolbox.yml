@@ -1,0 +1,85 @@
+name: Build LEGO 17101 self-hosted review
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lego-17101-toolbox/source_chunks/**"
+      - ".github/workflows/build-lego-17101-toolbox.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lego-17101-toolbox-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pillow requests urllib3
+
+      - name: Assemble and validate builder
+        run: |
+          cat lego-17101-toolbox/source_chunks/part_00.txt \
+              lego-17101-toolbox/source_chunks/part_01.txt \
+              lego-17101-toolbox/source_chunks/part_02.txt \
+              > lego-17101-toolbox/build.py
+          python -m py_compile lego-17101-toolbox/build.py
+
+      - name: Download, verify and render all 218 real LEGO part images
+        run: python lego-17101-toolbox/build.py
+
+      - name: Enforce release gate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(
+              Path("lego-17101-toolbox/reports/verification.json").read_text()
+          )["summary"]
+          print(report)
+          assert report["total"] == 218
+          assert report["success"] == 218
+          assert report["failed"] == 0
+          assert report["inventory_pieces"] == 850
+          assert report["design_colour_homes"] == 218
+          for path in [
+              "lego-17101-toolbox/index.html",
+              "lego-17101-toolbox/proof.html",
+              "lego-17101-toolbox/static/proof-12.png",
+              "lego-17101-toolbox/static/tray-A.png",
+              "lego-17101-toolbox/static/tray-B.png",
+              "lego-17101-toolbox/static/tray-C.png",
+              "lego-17101-toolbox/static/overview.png",
+          ]:
+              assert Path(path).is_file(), path
+          PY
+
+      - name: Commit self-hosted images and generated review site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lego-17101-toolbox
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit"
+          else
+            git commit -m "build: self-host all LEGO 17101 images [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
