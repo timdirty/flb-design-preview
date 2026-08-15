@@ -1,0 +1,276 @@
+IAL":"#8B5BC7","ACCENT":"#87909A"}
+GROUP_BADGE = {"BUILD":"B","MECHANISM":"M","SPECIAL":"S","ACCENT":"A"}
+PROOF_IDS = ["6283413","6283415","6240610","6097664","6325504","6185551","4495935","370826","4177431","4121715","300126","6078296"]
+
+
+def decode_csv(payload: str):
+    data = gzip.decompress(base64.b64decode(payload)).decode("utf-8-sig")
+    return list(csv.DictReader(io.StringIO(data)))
+
+
+def make_session():
+    s = requests.Session()
+    retry = Retry(total=5, connect=5, read=5, backoff_factor=.8,
+                  status_forcelist=(429,500,502,503,504), allowed_methods=frozenset(["GET"]))
+    s.mount("https://", HTTPAdapter(max_retries=retry))
+    s.headers.update({
+        "User-Agent":"Mozilla/5.0 FLB-17101-GitHub-Pages/1.0",
+        "Accept":"image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+    })
+    return s
+
+
+def valid(path: Path):
+    try:
+        with Image.open(path) as im:
+            im.verify()
+        return path.stat().st_size > 500
+    except Exception:
+        return False
+
+
+def candidates(row):
+    eid, rel = row["ElementID"], row["ImageURL"]
+    return [
+        f"https://www.lego.com{rel}",
+        f"https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/{eid}.jpg",
+        f"https://images.brickset.com/parts/{eid}.jpg",
+        f"https://images.brickset.com/parts/large/{eid}.jpg",
+        f"https://cdn.rebrickable.com/media/parts/elements/{eid}.jpg",
+    ]
+
+
+def save_image(raw: bytes, path: Path):
+    with Image.open(io.BytesIO(raw)) as im:
+        im.load()
+        im = im.convert("RGBA")
+        im.thumbnail((640,640), Image.Resampling.LANCZOS)
+        im.save(path, "WEBP", quality=92, method=6)
+
+
+def download(row):
+    path = IMAGES / f"{row['ElementID']}.webp"
+    if valid(path):
+        return {"element":row["ElementID"],"status":"cached","source":"repo"}
+    s = make_session()
+    errors = []
+    for url in candidates(row):
+        try:
+            r = s.get(url, timeout=(15,45), allow_redirects=True)
+            if r.status_code != 200:
+                errors.append(f"{url} HTTP {r.status_code}")
+                continue
+            save_image(r.content, path)
+            if valid(path):
+                return {
+                    "element":row["ElementID"],"status":"downloaded","source":r.url,
+                    "sha256":hashlib.sha256(path.read_bytes()).hexdigest(),
+                }
+        except Exception as exc:
+            errors.append(f"{url} {type(exc).__name__}: {exc}")
+        time.sleep(.12)
+    return {"element":row["ElementID"],"status":"failed","source":None,"errors":errors}
+
+
+def font(size, bold=False):
+    p = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    return ImageFont.truetype(p, size) if Path(p).exists() else ImageFont.load_default()
+
+
+def rgb(value):
+    value = value.lstrip("#")
+    return tuple(int(value[i:i+2],16) for i in (0,2,4))
+
+
+def light(value, amount=.78):
+    return tuple(round(c+(255-c)*amount) for c in rgb(value))
+
+
+def compose_tray(tray, parts):
+    scale = 1800/304
+    canvas = Image.new("RGB", (1800,1800), (248,248,246))
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle((8,8,1792,1792), radius=44, fill=(250,250,248), outline=(40,43,47), width=9)
+
+    def box(x,y,w,h):
+        return (round(x*scale), round((304-y-h)*scale), round((x+w)*scale), round((304-y)*scale))
+
+    for colour, rect in PANEL_RECTS[tray].items():
+        b = box(*rect)
+        c = PALETTE[colour]
+        draw.rounded_rectangle(b, radius=22, fill=light(c), outline=rgb(c), width=5)
+        heading_h = max(30, round((b[3]-b[1])*.09))
+        draw.rounded_rectangle((b[0]+3,b[1]+3,b[2]-3,b[1]+heading_h), radius=16, fill=rgb(c))
+        count = sum(int(p["Qty"]) for p in parts if p["tray"]==tray and p["Colour"]==colour)
+        homes = sum(1 for p in parts if p["tray"]==tray and p["Colour"]==colour)
+        text_colour = "white" if colour in {"Black","Bright Red","Bright Blue","Dark Azur","Dark Stone Grey","Dark Green","Reddish Brown"} else "black"
+        draw.text((b[0]+14,b[1]+7), f"{colour} · {count} pcs · {homes} homes",
+                  font=font(max(15,heading_h//2),True), fill=text_colour)
+
+    accent = box(5,5,294,50)
+    draw.rounded_rectangle(accent, radius=20, fill=(243,244,245), outline=(170,176,182), width=4)
+    draw.text((accent[0]+14,accent[1]+8), "ACCENT COLOURS", font=font(21,True), fill=(70,75,80))
+
+    for part in [p for p in parts if p["tray"]==tray]:
+        b = box(float(part["x"]),float(part["y"]),float(part["w"]),float(part["h"]))
+        border = rgb(GROUP_BORDER.get(part["group"],"#87909A"))
+        draw.rounded_rectangle(b, radius=max(6,round(min(b[2]-b[0],b[3]-b[1])*.11)), fill="white", outline=border, width=3)
+        image_path = IMAGES / f"{part['ElementID']}.webp"
+        if valid(image_path):
+            with Image.open(image_path) as im:
+                im = ImageOps.contain(im.convert("RGBA"), (max(1,b[2]-b[0]-10),max(1,b[3]-b[1]-20)), Image.Resampling.LANCZOS)
+                canvas.paste(im, (b[0]+(b[2]-b[0]-im.width)//2, b[1]+4+(b[3]-b[1]-20-im.height)//2), im)
+        else:
+            draw.text((b[0]+4,b[1]+5), "MISSING", font=font(9,True), fill="red")
+
+        qty = f"×{part['Qty']}"
+        radius = max(8,min(20,round(min(b[2]-b[0],b[3]-b[1])*.13)))
+        qx,qy = b[2]-radius,b[1]+radius
+        draw.ellipse((qx-radius,qy-radius,qx+radius,qy+radius), fill=(25,27,30), outline="white", width=2)
+        qb = draw.textbbox((0,0),qty,font=font(max(8,radius-2),True))
+        draw.text((qx-(qb[2]-qb[0])/2,qy-(qb[3]-qb[1])/2-1),qty,font=font(max(8,radius-2),True),fill="white")
+
+        badge = GROUP_BADGE.get(part["group"],"A")
+        br = max(7,min(16,round(min(b[2]-b[0],b[3]-b[1])*.1)))
+        draw.ellipse((b[0]-2,b[1]-2,b[0]-2+br*2,b[1]-2+br*2), fill="white", outline=border, width=2)
+        draw.text((b[0]+br-6,b[1]+br-7),badge,font=font(max(8,br),True),fill=border)
+        if b[2]-b[0] > 38:
+            draw.text((b[0]+4,b[3]-13),part["DesignID"],font=font(9,True),fill=(65,70,75))
+        notch_w = max(10,round((b[2]-b[0])*.28))
+        notch_h = max(5,round((b[3]-b[1])*.12))
+        draw.pieslice(((b[0]+b[2]-notch_w)//2,b[3]-notch_h,(b[0]+b[2]+notch_w)//2,b[3]+notch_h),180,360,
+                      fill=(238,240,242),outline=(110,116,124),width=2)
+
+    out = STATIC / f"tray-{tray}.png"
+    canvas.save(out,optimize=True)
+    return out
+
+
+def compose_proof(parts):
+    selected = [next(p for p in parts if p["ElementID"]==eid) for eid in PROOF_IDS]
+    width,height = 2400,1800
+    canvas = Image.new("RGB",(width,height),(238,240,242))
+    draw = ImageDraw.Draw(canvas)
+    draw.text((70,30),"LEGO BOOST 17101 · 12 REAL PART IMAGE PROOF",font=font(42,True),fill=(25,27,30))
+    card_w = (width-140-84)//4
+    card_h = (height-180-56)//3
+    for i,part in enumerate(selected):
+        col,row = i%4,i//4
+        x = 70+col*(card_w+28)
+        y = 130+row*(card_h+28)
+        draw.rounded_rectangle((x,y,x+card_w,y+card_h),radius=28,fill="white",outline=(215,220,225),width=3)
+        image_path = IMAGES / f"{part['ElementID']}.webp"
+        if valid(image_path):
+            with Image.open(image_path) as im:
+                im = ImageOps.contain(im.convert("RGBA"),(card_w-50,card_h-120),Image.Resampling.LANCZOS)
+                canvas.paste(im,(x+(card_w-im.width)//2,y+18+(card_h-120-im.height)//2),im)
+        draw.text((x+20,y+card_h-88),part["ElementName"][:40],font=font(18,True),fill=(25,27,30))
+        draw.text((x+20,y+card_h-50),f"{part['Colour']} · Element {part['ElementID']} · Design {part['DesignID']} · ×{part['Qty']}",font=font(14),fill=(95,100,108))
+    out = STATIC / "proof-12.png"
+    canvas.save(out,optimize=True)
+    return out
+
+
+def esc(value):
+    return html.escape(str(value),quote=True)
+
+
+def build_html(parts, summary):
+    def pct(v): return float(v)/304*100
+    def top(y,h): return (304-float(y)-float(h))/304*100
+
+    def home(part):
+        payload = esc(json.dumps({
+            "name":part["ElementName"],"colour":part["Colour"],"qty":int(part["Qty"]),
+            "category":part["Category"],"design":part["DesignID"],"element":part["ElementID"],
+            "group":part["group"],"image":f"images/{part['ElementID']}.webp",
+        },ensure_ascii=False))
+        return (
+            f'<button class="home g-{part["group"].lower()}" '
+            f'style="left:{pct(part["x"]):.4f}%;top:{top(part["y"],part["h"]):.4f}%;'
+            f'width:{pct(part["w"]):.4f}%;height:{pct(part["h"]):.4f}%;'
+            f'data-part="{payload}" onclick="openPart(this)" title="{esc(part["ElementName"])}">'
+            f'<span class="fb">{GROUP_BADGE.get(part["group"],"A")}</span>'
+            f'<img src="images/{part["ElementID"]}.webp" alt="{esc(part["ElementName"])}" loading="lazy">'
+            f'<span class="qty">×{part["Qty"]}</span><span class="did">{part["DesignID"]}</span><span class="notch"></span></button>'
+        )
+
+    def panel(tray, colour, rect):
+        x,y,w,h = rect
+        count = sum(int(p["Qty"]) for p in parts if p["tray"]==tray and p["Colour"]==colour)
+        homes = sum(1 for p in parts if p["tray"]==tray and p["Colour"]==colour)
+        c = PALETTE[colour]
+        fg = "white" if colour in {"Black","Bright Red","Bright Blue","Dark Azur","Dark Stone Grey","Dark Green","Reddish Brown"} else "black"
+        return (f'<div class="panel" style="left:{pct(x):.4f}%;top:{top(y,h):.4f}%;width:{pct(w):.4f}%;height:{pct(h):.4f}%;--c:{c};">'
+                f'<div class="panel-title" style="color:{fg}">{esc(colour)}<span>{count} pcs · {homes} homes</span></div></div>')
+
+    def tray(tray):
+        panels = ''.join(panel(tray,c,r) for c,r in PANEL_RECTS[tray].items())
+        homes = ''.join(home(p) for p in parts if p["tray"]==tray)
+        return f'<section id="tray-{tray}" class="tray"><div class="board">{panels}<div class="accent">ACCENT COLOURS</div>{homes}</div></section>'
+
+    cards = ''.join(
+        f'<article><img src="images/{p["ElementID"]}.webp" alt="{esc(p["ElementName"])}"><strong>{esc(p["ElementName"])}</strong><small>{p["Colour"]} · Element {p["ElementID"]} · ×{p["Qty"]}</small></article>'
+        for p in [next(p for p in parts if p["ElementID"]==eid) for eid in PROOF_IDS]
+    )
+
+    page = f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FLB LEGO BOOST 17101 自託管真實零件配置</title><style>
+*{{box-sizing:border-box}}body{{margin:0;background:#eef0f2;color:#17191c;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}}
+header{{position:sticky;top:0;z-index:400;background:#fffffff2;backdrop-filter:blur(16px);border-bottom:1px solid #d9dde1}}.head{{max-width:1480px;margin:auto;padding:13px 18px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}}h1{{font-size:19px;margin:0}}.status{{background:#dff6e7;color:#135f2c;border-radius:999px;padding:8px 12px;font-weight:900;font-size:12px}}main{{max-width:1480px;margin:auto;padding:20px 10px 60px}}.notice{{background:#e4f5e9;border:1px solid #92cda5;border-radius:14px;padding:13px 15px;margin-bottom:18px;line-height:1.6}}.proof{{background:white;border-radius:18px;padding:16px;box-shadow:0 12px 45px #0001;margin-bottom:20px}}.proof-grid{{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}}article{{border:1px solid #dde1e5;border-radius:12px;padding:8px;min-width:0;background:#fbfbfc}}article img{{width:100%;aspect-ratio:1;object-fit:contain;background:white;border-radius:9px}}article strong{{display:block;font-size:10px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}article small{{font-size:8px;color:#747b83}}.tabs{{position:sticky;top:74px;z-index:350;display:flex;gap:7px;width:max-content;background:#eef0f2dd;padding:7px;border-radius:12px;backdrop-filter:blur(12px)}}.tab{{border:0;background:#fff;border-radius:9px;padding:9px 18px;font-weight:900}}.tab.active{{background:#17191c;color:#fff}}.tray{{display:none;margin-top:14px}}.tray.active{{display:block}}.board{{position:relative;width:min(96vw,1150px);aspect-ratio:1;margin:auto;background:#fafaf8;border:5px solid #282b2f;border-radius:3%;box-shadow:0 24px 70px #0002;overflow:visible}}.panel{{position:absolute;border:2px solid var(--c);background:color-mix(in srgb,var(--c),white 82%);border-radius:2.4%;z-index:1;overflow:hidden}}.panel-title{{height:9%;min-height:22px;background:var(--c);padding:3px 7px;font-size:clamp(8px,1vw,14px);font-weight:900;display:flex;align-items:center;justify-content:space-between}}.panel-title span{{font-size:.72em;opacity:.82}}.accent{{position:absolute;left:1.6447%;top:82.2368%;width:96.7105%;height:16.4474%;background:#f3f4f5;border:2px solid #aeb4bb;border-radius:11px;z-index:1;padding:4px 8px;font-size:clamp(7px,.8vw,12px);font-weight:900;color:#555}}.home{{position:absolute;z-index:20;border-radius:10%;background:#fff;padding:1.5%;box-shadow:0 2px 6px #0002;display:flex;align-items:center;justify-content:center;cursor:zoom-in;transition:.15s;overflow:visible}}.home:hover{{transform:scale(1.12);z-index:120;box-shadow:0 14px 35px #0005}}.home img{{width:94%;height:88%;object-fit:contain}}.g-build{{border:1.5px solid #3d7bd9}}.g-mechanism{{border:1.5px solid #e38b27}}.g-special{{border:1.5px solid #8b5bc7}}.g-accent{{border:1.5px solid #87909a}}.qty{{position:absolute;right:-5%;top:-7%;min-width:26%;aspect-ratio:1;border-radius:999px;background:#17191c;color:#fff;border:1.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:clamp(6px,.65vw,10px);font-weight:900;z-index:8}}.fb{{position:absolute;left:-4%;top:-6%;min-width:22%;aspect-ratio:1;border-radius:999px;background:#fff;border:1px solid #747b84;display:flex;align-items:center;justify-content:center;font-size:clamp(6px,.55vw,9px);font-weight:900;z-index:8}}.did{{position:absolute;left:5%;right:5%;bottom:2%;background:#ffffffd9;font:700 clamp(5px,.48vw,8px)/1 monospace;text-align:center;border-radius:3px;color:#3a4048}}.notch{{position:absolute;bottom:-1px;left:36%;width:28%;height:15%;background:#eef0f2;border:1.2px solid #747b84;border-bottom:0;border-radius:999px 999px 0 0;z-index:10}}.modal{{display:none;position:fixed;inset:0;z-index:900;background:#0b0d10c9;align-items:center;justify-content:center;padding:18px}}.modal.open{{display:flex}}.modal-card{{width:min(94vw,820px);max-height:94vh;overflow:auto;background:white;border-radius:20px;padding:20px}}.close{{float:right;border:0;border-radius:999px;width:38px;height:38px;font-size:22px}}.modal-grid{{clear:both;display:grid;grid-template-columns:1.1fr .9fr;gap:22px}}.modal-image{{width:100%;aspect-ratio:1;object-fit:contain;border:1px solid #ddd;border-radius:16px}}table{{width:100%;border-collapse:collapse;font-size:13px}}td{{padding:8px 3px;border-bottom:1px solid #eee}}td:first-child{{color:#777;width:38%}}@media(max-width:850px){{.proof-grid{{grid-template-columns:repeat(3,1fr)}}.modal-grid{{grid-template-columns:1fr}}}}@media(max-width:500px){{.proof-grid{{grid-template-columns:repeat(2,1fr)}}main{{padding:12px 5px 40px}}.board{{width:99vw;border-width:3px}}}}
+</style></head><body><header><div class="head"><div><h1>FLB LEGO BOOST 17101 真實零件配置</h1><small>218 個零件 Home · 850 件 · GitHub 自託管圖片</small></div><div class="status">✓ 218 / 218 真實零件圖片已下載並驗證</div></div></header><main><div class="notice"><strong>這版不再熱連結。</strong> 所有零件圖片都已由 GitHub Actions 下載、驗證並存進同一個 GitHub Pages 網站；手機開啟不需要再向 LEGO / Brickset 即時取圖。</div><section class="proof"><h2>12 個關鍵零件真實圖片驗證</h2><div class="proof-grid">{cards}</div><p><a href="static/proof-12.png">開啟離線靜態大圖</a></p></section><div class="tabs"><button class="tab active" onclick="showTray('A',this)">Tray A</button><button class="tab" onclick="showTray('B',this)">Tray B</button><button class="tab" onclick="showTray('C',this)">Tray C</button></div>{tray('A')}{tray('B')}{tray('C')}</main><div class="modal" id="modal" onclick="backdrop(event)"><div class="modal-card"><button class="close" onclick="closeModal()">×</button><div class="modal-grid"><img id="mi" class="modal-image"><div><h2 id="mn"></h2><table><tr><td>顏色</td><td id="mc"></td></tr><tr><td>數量</td><td id="mq"></td></tr><tr><td>功能</td><td id="mg"></td></tr><tr><td>類別</td><td id="mcat"></td></tr><tr><td>Design ID</td><td id="md"></td></tr><tr><td>Element ID</td><td id="me"></td></tr></table></div></div></div></div><script>function showTray(t,b){{document.querySelectorAll('.tray').forEach(x=>x.classList.remove('active'));document.getElementById('tray-'+t).classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active')}}function openPart(btn){{const d=JSON.parse(btn.dataset.part);document.getElementById('mi').src=d.image;document.getElementById('mn').textContent=d.name;document.getElementById('mc').textContent=d.colour;document.getElementById('mq').textContent='×'+d.qty;document.getElementById('mg').textContent=d.group;document.getElementById('mcat').textContent=d.category;document.getElementById('md').textContent=d.design;document.getElementById('me').textContent=d.element;document.getElementById('modal').classList.add('open')}}function closeModal(){{document.getElementById('modal').classList.remove('open')}}function backdrop(e){{if(e.target.id==='modal')closeModal()}}document.getElementById('tray-A').classList.add('active');</script></body></html>'''
+    (ROOT / "index.html").write_text(page,encoding="utf-8")
+    proof = page.replace("FLB LEGO BOOST 17101 真實零件配置", "FLB LEGO BOOST 17101 · 12 REAL PART PROOF")
+    (ROOT / "proof.html").write_text(proof,encoding="utf-8")
+
+
+def main():
+    inventory, layout = decode_csv(INVENTORY_B64), decode_csv(LAYOUT_B64)
+    by_key = {(r["DesignID"],r["Colour"]):r for r in inventory}
+    parts=[]
+    for h in layout:
+        r=by_key[(h["design_id"],h["colour"])]
+        parts.append({**h,**r})
+    assert len(inventory)==218 and sum(int(r["Qty"]) for r in inventory)==850
+    assert len(parts)==218
+
+    results=[]
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures={pool.submit(download,row):row for row in inventory}
+        for i,fut in enumerate(as_completed(futures),1):
+            result=fut.result(); results.append(result)
+            print(f"[{i:03d}/218] {result['element']} {result['status']}",flush=True)
+
+    success=[r for r in results if r["status"] in {"cached","downloaded"}]
+    failed=[r for r in results if r["status"]=="failed"]
+    summary={
+        "total":len(results),"success":len(success),"failed":len(failed),
+        "inventory_pieces":850,"design_colour_homes":218,
+        "generated_at_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()),
+    }
+    (REPORTS/"verification.json").write_text(json.dumps({"summary":summary,"results":sorted(results,key=lambda x:x["element"])},ensure_ascii=False,indent=2),encoding="utf-8")
+    if failed:
+        print(json.dumps(failed,ensure_ascii=False,indent=2))
+        raise SystemExit(f"Image verification failed: {len(failed)} / 218")
+
+    compose_proof(parts)
+    tray_paths=[compose_tray(t,parts) for t in "ABC"]
+    with Image.open(tray_paths[0]) as first:
+        overview=Image.new("RGB",(first.width*3,first.height),(255,255,255))
+    for i,p in enumerate(tray_paths):
+        with Image.open(p) as im: overview.paste(im,(i*im.width,0))
+    overview.save(STATIC/"overview.png",optimize=True)
+    build_html(parts,summary)
+    (ROOT/"README.md").write_text(
+        "# LEGO BOOST 17101 self-hosted review\n\n"
+        "Generated by GitHub Actions. All 218 part images are downloaded into `images/` and verified with Pillow.\n\n"
+        "- `index.html`: complete interactive review\n"
+        "- `proof.html`: 12-key-part proof\n"
+        "- `static/proof-12.png`: static proof\n"
+        "- `static/tray-A.png`, `tray-B.png`, `tray-C.png`: static tray renders\n"
+        "- `static/overview.png`: three-tray overview\n"
+        "- `reports/verification.json`: source and SHA-256 report\n",encoding="utf-8")
+    print(json.dumps(summary,indent=2))
+
+if __name__=="__main__":
+    main()
