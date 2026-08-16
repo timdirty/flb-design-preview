@@ -1,0 +1,91 @@
+name: Build LEGO 17101 LDraw geometry gate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lego-17101-toolbox/geometry/build_geometry.py.gz.b64"
+      - ".github/workflows/build-lego-17101-geometry.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lego-17101-geometry
+  cancel-in-progress: true
+
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout product repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install geometry dependencies
+        run: python -m pip install --upgrade numpy shapely pillow
+
+      - name: Clone LDraw Parts Library
+        run: git clone --depth 1 https://github.com/pybricks/ldraw.git /tmp/ldraw
+
+      - name: Decode and validate geometry builder
+        run: |
+          python - <<'PY'
+          import base64, gzip
+          from pathlib import Path
+          src = Path('lego-17101-toolbox/geometry/build_geometry.py.gz.b64')
+          dst = Path('lego-17101-toolbox/geometry/build_geometry.py')
+          dst.write_bytes(gzip.decompress(base64.b64decode(src.read_text().strip())))
+          PY
+          python -m py_compile lego-17101-toolbox/geometry/build_geometry.py
+
+      - name: Generate exact projected silhouettes and storage report
+        run: |
+          rm -rf lego-17101-toolbox/geometry/output
+          python lego-17101-toolbox/geometry/build_geometry.py \
+            --ldraw /tmp/ldraw \
+            --inventory lego-17101-toolbox/inventory.csv \
+            --output lego-17101-toolbox/geometry/output
+          cp /tmp/ldraw/CAlicense.txt lego-17101-toolbox/geometry/output/LDraw_CAlicense.txt || true
+          cp /tmp/ldraw/Readme.txt lego-17101-toolbox/geometry/output/LDraw_Readme.txt || true
+
+      - name: Enforce geometry release gate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('lego-17101-toolbox/geometry/output/report.json').read_text())
+          assert report['inventory_pieces'] == 850, report
+          assert report['unique_design_ids'] == 196, report
+          assert report['mapped_design_ids'] >= 180, report
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Commit generated geometry evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lego-17101-toolbox/geometry
+          if git diff --cached --quiet; then
+            echo "No geometry changes"
+          else
+            git commit -m "build: generate LEGO 17101 LDraw geometry gate [skip ci]"
+            git push
+          fi
+
+      - name: Upload geometry package
+        uses: actions/upload-artifact@v4
+        with:
+          name: lego-17101-ldraw-geometry
+          path: lego-17101-toolbox/geometry
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
