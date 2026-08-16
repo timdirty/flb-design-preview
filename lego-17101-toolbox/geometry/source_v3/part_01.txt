@@ -1,0 +1,148 @@
+g="utf-8-sig", errors="ignore") as handle:
+                for row in csv.DictReader(handle):
+                    rel = (row.get("rel_type") or "").strip().upper()
+                    child = (row.get("child_part_num") or "").strip()
+                    parent = (row.get("parent_part_num") or "").strip()
+                    if rel not in {"A", "M", "R", "T"} or not child or not parent:
+                        continue
+                    self.graph[child].add(parent)
+                    self.graph[parent].add(child)
+
+    def candidates(self, design_id: str, inventory_rows: list[dict], max_depth: int = 2):
+        ordered: list[tuple[str, str]] = [(design_id, "design_id")]
+        for part in sorted(self.by_design.get(design_id, set())):
+            ordered.append((part, "design_alias"))
+        for row in inventory_rows:
+            for part in sorted(self.by_element.get(row.get("ElementID", ""), set())):
+                ordered.append((part, "element_alias"))
+
+        seen = set()
+        seed_parts = []
+        for value, source in ordered:
+            if value and value not in seen:
+                seen.add(value); seed_parts.append(value)
+                yield value, source, 0
+
+        queue = deque((part, 0) for part in seed_parts)
+        while queue:
+            part, depth = queue.popleft()
+            if depth >= max_depth:
+                continue
+            for related in sorted(self.graph.get(part, set())):
+                if related in seen:
+                    continue
+                seen.add(related)
+                queue.append((related, depth + 1))
+                yield related, "relationship_alias", depth + 1
+
+
+def filled(geom):
+    if geom.is_empty:
+        return geom
+    if isinstance(geom, Polygon):
+        return Polygon(geom.exterior)
+    if isinstance(geom, MultiPolygon):
+        return MultiPolygon([Polygon(p.exterior) for p in geom.geoms if not p.is_empty])
+    if isinstance(geom, GeometryCollection):
+        polys = [Polygon(p.exterior) for p in geom.geoms if isinstance(p, Polygon)]
+        return unary_union(polys) if polys else geom
+    return geom
+
+
+def project(triangles: np.ndarray, normal_axis: int):
+    keep = [axis for axis in range(3) if axis != normal_axis]
+    polys = []
+    for tri in triangles:
+        p = tri[:, keep] * LDU_MM
+        poly = Polygon(p)
+        if poly.is_valid and poly.area > 0.002:
+            polys.append(poly)
+    if not polys:
+        return None
+    geom = filled(unary_union(polys).buffer(0))
+    if geom.is_empty:
+        return None
+    geom = geom.buffer(0.03, join_style=2).buffer(-0.03, join_style=2).simplify(0.05, preserve_topology=True)
+    geom = filled(geom)
+    minx, miny, maxx, maxy = geom.bounds
+    geom = translate(geom, xoff=-minx, yoff=-miny)
+    thickness = float(np.ptp(triangles[:, :, normal_axis]) * LDU_MM)
+    return geom, maxx - minx, maxy - miny, thickness
+
+
+def choose_projection(triangles: np.ndarray):
+    candidates = []
+    for axis in (0, 1, 2):
+        result = project(triangles, axis)
+        if result is None:
+            continue
+        geom, width, height, thickness = result
+        bbox_area = max(width * height, 0.001)
+        fill_ratio = geom.area / bbox_area
+        score = geom.area * (0.75 + 0.25 * fill_ratio) / ((max(thickness, 0.5)) ** 0.12)
+        candidates.append((score, axis, geom, width, height, thickness))
+    return max(candidates, key=lambda item: item[0]) if candidates else None
+
+
+def polygon_path(poly: Polygon, y_max: float) -> str:
+    coords = list(poly.exterior.coords)
+    if not coords:
+        return ""
+    commands = [f"M {coords[0][0]:.3f} {y_max - coords[0][1]:.3f}"]
+    commands.extend(f"L {x:.3f} {y_max - y:.3f}" for x, y in coords[1:])
+    commands.append("Z")
+    return " ".join(commands)
+
+
+def write_svg(geom, width: float, height: float, path: Path):
+    buffered = filled(geom.buffer(OFFSET_MM, join_style=2))
+    minx, miny, maxx, maxy = buffered.bounds
+    buffered = translate(buffered, xoff=-minx, yoff=-miny)
+    width, height = maxx - minx, maxy - miny
+    polys = [buffered] if isinstance(buffered, Polygon) else list(buffered.geoms)
+    d = " ".join(polygon_path(poly, height) for poly in polys if isinstance(poly, Polygon))
+    path.write_text(
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width:.3f} {height:.3f}" '
+        f'width="{width:.3f}mm" height="{height:.3f}mm"><path d="{d}" fill="#111"/></svg>',
+        encoding="utf-8",
+    )
+    return width, height
+
+
+def storage_mode(row: dict, width: float, height: float, thickness: float):
+    qty = int(row["Qty"])
+    name = row["ElementName"].upper()
+    if any(key in name for key in ("HUB MOTOR", "TACHO MOTOR", "SENSOR")):
+        return "critical_nest", min(42.0, thickness + 4.0)
+    stack = qty * max(thickness, 1.0) + 2.0
+    if qty > 12:
+        return "deep_counted_bin", 42.0
+    if max(width, height) > 60 and min(width, height) < 16 and qty >= 4:
+        return "edge_magazine", min(42.0, stack)
+    if stack > 42:
+        return "edge_magazine", 42.0
+    return "shadow_stack", min(42.0, stack)
+
+
+def font(size: int, bold: bool = False):
+    paths = [
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    ]
+    for path in paths:
+        if Path(path).exists():
+            return ImageFont.truetype(path, size)
+    return ImageFont.load_default()
+
+
+def atlas(results: list[PartResult], output: Path):
+    cols = 14
+    cell_w, cell_h = 190, 170
+    rows = math.ceil(len(results) / cols)
+    canvas = Image.new("RGB", (cols * cell_w, rows * cell_h), "white")
+    draw = ImageDraw.Draw(canvas)
+    for index, result in enumerate(results):
+        x = (index % cols) * cell_w
+        y = (index // cols) * cell_h
+        draw.rounded_rectangle((x + 3, y + 3, x + cell_w - 3, y + cell_h - 3), radius=10, outline="#cfd4da", width=2)
+        if result.svg_file:
+            # Pillow cannot render SVG. Draw a bounding-box proxy and k
