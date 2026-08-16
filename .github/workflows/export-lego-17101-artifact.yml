@@ -1,0 +1,33 @@
+name: Export LEGO 17101 review artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/export-lego-17101-artifact.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify generated review
+        run: |
+          test -f lego-17101-toolbox/reports/verification.json
+          test -d lego-17101-toolbox/images
+          test "$(find lego-17101-toolbox/images -type f -name '*.webp' | wc -l)" -eq 218
+
+      - name: Upload complete review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: lego-17101-toolbox-self-hosted
+          path: lego-17101-toolbox
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
