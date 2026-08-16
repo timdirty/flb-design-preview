@@ -1,0 +1,57 @@
+"",
+            "ThicknessMM": round(thickness, 3) if thickness is not None else "",
+            "StorageMode": mode,
+            "RecommendedDepthMM": round(depth, 2),
+            "FloorWidthMM": round(floor_w, 2),
+            "FloorHeightMM": round(floor_h, 2),
+            "FloorAreaMM2": round(floor_area, 2),
+        })
+
+    with (args.output / "geometry_manifest.csv").open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows_out[0].keys())
+        writer.writeheader(); writer.writerows(rows_out)
+    with (args.output / "design_geometry.csv").open("w", newline="", encoding="utf-8-sig") as handle:
+        writer = csv.DictWriter(handle, fieldnames=PartResult.__dataclass_fields__.keys())
+        writer.writeheader(); writer.writerows([r.__dict__ for r in results])
+
+    exact = sum(r.status == "exact" for r in results)
+    mapped = sum(r.svg_file is not None for r in results)
+    status_counts: dict[str, int] = {}
+    for result in results:
+        status_counts[result.status] = status_counts.get(result.status, 0) + 1
+    missing = [r.design_id for r in results if r.svg_file is None]
+    # Area-balanced colour allocation, keeping every colour intact.
+    tray_areas = {"A": 0.0, "B": 0.0, "C": 0.0}
+    tray_colours = {"A": [], "B": [], "C": []}
+    for colour, area in sorted(colour_area.items(), key=lambda item: item[1], reverse=True):
+        tray = min(tray_areas, key=tray_areas.get)
+        tray_colours[tray].append(colour); tray_areas[tray] += area
+
+    report = {
+        "unique_design_ids": len(design_ids),
+        "mapped_design_ids": mapped,
+        "exact_filename_matches": exact,
+        "mapping_status_counts": status_counts,
+        "missing_design_ids": missing,
+        "offset_mm_per_side": OFFSET_MM,
+        "inventory_rows": len(inventory),
+        "inventory_pieces": sum(int(row["Qty"]) for row in inventory),
+        "colour_floor_area_mm2": {key: round(value, 2) for key, value in sorted(colour_area.items(), key=lambda item: item[1], reverse=True)},
+        "recommended_area_balanced_trays": {tray: {"colours": tray_colours[tray], "floor_area_mm2": round(tray_areas[tray], 2)} for tray in "ABC"},
+        "ldraw_attribution": "Geometry derived from the LDraw Parts Library. Retain LDraw attribution and applicable license notices.",
+    }
+    (args.output / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    atlas(results, args.output / "silhouette_atlas.png")
+    (args.output / "ATTRIBUTION.md").write_text(
+        "# Attribution\n\nGeometry in this folder is derived from the LDraw Parts Library cloned from `pybricks/ldraw`. "
+        "LDraw files remain subject to the library's own license and attribution requirements. "
+        "The 0.1 mm buffered SVGs are engineering derivatives for fit testing, not official LEGO CAD.\n",
+        encoding="utf-8",
+    )
+    print(json.dumps(report, indent=2), flush=True)
+    if mapped < 190:
+        raise SystemExit(f"Geometry coverage too low: {mapped}/{len(design_ids)}")
+
+
+if __name__ == "__main__":
+    main()
