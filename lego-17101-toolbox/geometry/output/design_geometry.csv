@@ -111,9 +111,9 @@
 32531,exact,parts/32531.dat,XZ,32.2,48.2,11.2,1536.0,svg/32531.svg,
 32557,exact,parts/32557.dat,XY,15.404,23.402,8.0,217.083,svg/32557.svg,
 32807,exact,parts/32807.dat,XZ,8.2,16.2,12.8,128.0,svg/32807.svg,
-34297,missing,,,,,,,,No LDraw or element/relationship alias part file
-34298,missing,,,,,,,,No LDraw or element/relationship alias part file
-34300,missing,,,,,,,,No LDraw or element/relationship alias part file
+34297,design_alias,parts/3001.dat,XZ,32.2,16.2,11.2,512.0,svg/34297.svg,
+34298,design_alias,parts/93606.dat,XZ,16.2,32.2,9.6,512.0,svg/34298.svg,
+34300,design_alias,parts/3069b.dat,XZ,16.2,8.2,3.2,128.0,svg/34300.svg,
 34820,design_alias,parts/24130.dat,XZ,32.203,32.203,17.6,793.232,svg/34820.svg,
 35320,design_alias,parts/86500.dat,XZ,32.2,32.2,16.0,801.948,svg/35320.svg,
 35381,design_alias,parts/98138.dat,XZ,8.204,8.204,3.2,48.984,svg/35381.svg,

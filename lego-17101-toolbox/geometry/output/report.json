@@ -1,26 +1,21 @@
 {
   "unique_design_ids": 196,
-  "mapped_design_ids": 193,
+  "mapped_design_ids": 196,
   "exact_filename_matches": 155,
   "mapping_status_counts": {
     "exact": 155,
     "prefix": 1,
-    "design_alias": 33,
-    "missing": 3,
+    "design_alias": 36,
     "relationship_alias": 4
   },
-  "missing_design_ids": [
-    "34297",
-    "34298",
-    "34300"
-  ],
+  "missing_design_ids": [],
   "offset_mm_per_side": 0.1,
   "inventory_rows": 218,
   "inventory_pieces": 850,
   "colour_floor_area_mm2": {
     "Black": 47300.51,
-    "White": 32723.82,
-    "Dark Azur": 19642.05,
+    "White": 32626.26,
+    "Dark Azur": 19797.29,
     "Dark Stone Grey": 13917.09,
     "Bright Orange": 11334.29,
     "Medium Stone Grey": 11284.95,
@@ -50,10 +45,9 @@
         "Bright Blue",
         "Reddish Brown",
         "Transparent Light Blue",
-        "Transparent Blue",
-        "Silver Metallic"
+        "Transparent Red"
       ],
-      "floor_area_mm2": 55272.51
+      "floor_area_mm2": 54985.26
     },
     "B": {
       "colours": [
@@ -63,9 +57,10 @@
         "Flame Yellowish Orange",
         "Dark Green",
         "Bright Yellowish Green",
-        "Transparent Red"
+        "Transparent Blue",
+        "Sand Yellow"
       ],
-      "floor_area_mm2": 55001.78
+      "floor_area_mm2": 55214.62
     },
     "C": {
       "colours": [
@@ -77,9 +72,9 @@
         "Transparent Bright Orange",
         "Medium Azur",
         "Light Purple",
-        "Sand Yellow"
+        "Silver Metallic"
       ],
-      "floor_area_mm2": 55059.81
+      "floor_area_mm2": 55191.9
     }
   },
   "ldraw_attribution": "Geometry derived from the LDraw Parts Library. Retain LDraw attribution and applicable license notices."

@@ -119,7 +119,7 @@
 17101-1,6185546,5,Dark Azur,Bricks,32531,"4X6 BRICK, Ø 4,85",/cdn/product-assets/element.img.lod5photo.192x192/6185546.jpg,13,exact,XZ,32.2,48.2,11.2,edge_magazine,42.0,36.2,52.2,1889.64
 17101-1,6185547,1,Dark Azur,Bricks,41750,LEFT SHELL 3X8X2 W/BOW/ANGLE,/cdn/product-assets/element.img.lod5photo.192x192/6185547.jpg,1,exact,XZ,24.2,64.2,20.8,shadow_stack,22.8,28.2,68.2,1923.24
 17101-1,6185548,1,Dark Azur,Bricks,41749,RIGHT SHELL 3X8X2 W/BOW/ANGLE,/cdn/product-assets/element.img.lod5photo.192x192/6185548.jpg,1,exact,XZ,24.2,64.2,20.8,shadow_stack,22.8,28.2,68.2,1923.24
-17101-1,6194498,1,Dark Azur,Bricks,34298,"BRICK 2X4, W/ BOW, NO. 3",/cdn/product-assets/element.img.lod5photo.192x192/6194498.jpg,1,missing,,,,,manual_review,20.0,24.0,24.0,576.0
+17101-1,6194498,1,Dark Azur,Bricks,34298,"BRICK 2X4, W/ BOW, NO. 3",/cdn/product-assets/element.img.lod5photo.192x192/6194498.jpg,1,design_alias,XZ,16.2,32.2,9.6,shadow_stack,11.6,20.2,36.2,731.24
 17101-1,6197913,2,Dark Azur,Bricks,2730,TECHNIC BRICK 1X10 Ø4.9,/cdn/product-assets/element.img.lod5photo.192x192/6197913.jpg,6,exact,XY,80.2,11.4,8.0,shadow_stack,18.0,84.2,16.0,1347.2
 17101-1,6330158,2,Dark Azur,Bricks,48442,BRICK 2X2 Ø4.85 HORIZ. SNAP,/cdn/product-assets/element.img.lod5photo.192x192/6330158.jpg,3,design_alias,XZ,30.85,16.2,13.6,shadow_stack,29.2,34.85,20.2,703.96
 17101-1,6411366,2,Dark Azur,Bricks,32807,"BRICK 1X1X1 1/3, W/ ARCH",/cdn/product-assets/element.img.lod5photo.192x192/6411366.jpg,18,exact,XZ,8.2,16.2,12.8,shadow_stack,27.6,16.0,20.2,323.2
@@ -207,8 +207,8 @@
 17101-1,6092256,2,White,Vehicles & Transportation,55982,RIM WIDE 18x14 W. CROSS Ø4.8,/cdn/product-assets/element.img.lod5photo.192x192/6092256.jpg,16,exact,XY,17.004,17.004,14.8,shadow_stack,31.6,21.0,21.0,441.16
 17101-1,6117940,4,White,Plates,21712,ANGLE PLATE 1X2 / 2X2,/cdn/cs/set/assets/blt66dbce0800a18edc/6117940.jpg,301,design_alias,XY,16.2,17.8,11.2,edge_magazine,42.0,20.2,21.8,440.36
 17101-1,6188466,3,White,Bricks,6233,ROCKET STEP 3X3X2 W. CROSS,/cdn/product-assets/element.img.lod5photo.192x192/6188466.jpg,19,exact,XZ,24.204,24.204,20.8,edge_magazine,42.0,28.2,28.2,795.46
-17101-1,6194493,2,White,Bricks,34297,"BRICK 2X4, NO. 1005",/cdn/product-assets/element.img.lod5photo.192x192/6194493.jpg,1,missing,,,,,manual_review,20.0,24.0,24.0,576.0
-17101-1,6194502,2,White,Plates,34300,"FLAT TILE 1X2, NO. 200",/cdn/product-assets/element.img.lod5photo.192x192/6194502.jpg,9,missing,,,,,manual_review,20.0,24.0,24.0,576.0
+17101-1,6194493,2,White,Bricks,34297,"BRICK 2X4, NO. 1005",/cdn/product-assets/element.img.lod5photo.192x192/6194493.jpg,1,design_alias,XZ,32.2,16.2,11.2,shadow_stack,24.4,36.2,20.2,731.24
+17101-1,6194502,2,White,Plates,34300,"FLAT TILE 1X2, NO. 200",/cdn/product-assets/element.img.lod5photo.192x192/6194502.jpg,9,design_alias,XZ,16.2,8.2,3.2,shadow_stack,8.4,20.2,16.0,323.2
 17101-1,6240610,1,White,Power Functions,26912,"LPF2 SENSOR 2X4X2, NO. 1",/cdn/product-assets/element.img.lod5photo.192x192/6240610.jpg,2,exact,XZ,16.2,32.2,20.8,critical_nest,24.8,20.2,36.2,731.24
 17101-1,6280386,4,White,Plates,50029,"TECHNIC ROTOR, 2 BLADES",/cdn/product-assets/element.img.lod5photo.192x192/6280386.jpg,60,design_alias,XZ,40.204,8.2,4.8,shadow_stack,21.2,44.2,16.0,707.26
 17101-1,6283413,1,White,Power Functions,26910,LPF2 HUB MOTOR 6X16X4 NO. 1,/cdn/product-assets/element.img.lod5photo.192x192/6283413.jpg,2,exact,XZ,48.2,128.2,40.0,critical_nest,42.0,52.2,132.2,6900.84
