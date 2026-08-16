@@ -37,6 +37,8 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/pybricks/ldraw.git /tmp/ldraw
           git clone --depth 1 https://github.com/jdlien/lego-label-search.git /tmp/lego-label-search
+          cp /tmp/lego-label-search/data/elements.csv /tmp/elements-17101.csv
+          printf '\n6194493,3001,,34297\n6194498,93606,,34298\n6194502,3069b,,34300\n' >> /tmp/elements-17101.csv
 
       - name: Assemble and validate geometry builder
         run: |
@@ -53,7 +55,7 @@ jobs:
           python lego-17101-toolbox/geometry/build_geometry.py \
             --ldraw /tmp/ldraw \
             --inventory lego-17101-toolbox/inventory.csv \
-            --elements /tmp/lego-label-search/data/elements.csv \
+            --elements /tmp/elements-17101.csv \
             --relationships /tmp/lego-label-search/data/part_relationships.csv \
             --output lego-17101-toolbox/geometry/output
           cp /tmp/ldraw/CAlicense.txt lego-17101-toolbox/geometry/output/LDraw_CAlicense.txt || true
@@ -67,7 +69,8 @@ jobs:
           report = json.loads(Path('lego-17101-toolbox/geometry/output/report.json').read_text())
           assert report['inventory_pieces'] == 850, report
           assert report['unique_design_ids'] == 196, report
-          assert report['mapped_design_ids'] >= 190, report
+          assert report['mapped_design_ids'] == 196, report
+          assert not report['missing_design_ids'], report
           print(json.dumps(report, indent=2))
           PY
 
@@ -79,7 +82,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No geometry changes"
           else
-            git commit -m "build: resolve and generate LEGO 17101 LDraw geometry [skip ci]"
+            git commit -m "build: resolve all LEGO 17101 LDraw geometry [skip ci]"
             git push
           fi
 
