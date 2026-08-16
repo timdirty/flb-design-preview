@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import csv, hashlib, html, io, json, os, time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from pathlib import Path
+
+import requests
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+ROOT = Path(__file__).resolve().parent
+INV = ROOT / "inventory.csv"
+IMG = ROOT / "images"
+STATIC = ROOT / "static"
+REPORTS = ROOT / "reports"
+for d in (IMG, STATIC, REPORTS): d.mkdir(parents=True, exist_ok=True)
+
+TRAYS = {
+ "A": ["Black","Bright Red","Brick Yellow","Reddish Brown","Flame Yellowish Orange","Sand Yellow","Transparent Red"],
+ "B": ["White","Medium Stone Grey","Bright Yellow","Bright Blue","Light Purple","Bright Yellowish Green","Silver Metallic","Transparent Light Blue"],
+ "C": ["Bright Orange","Dark Azur","Dark Stone Grey","Dark Green","Medium Azur","Multicombination","Transparent Blue","Transparent Bright Orange"],
+}
+COLOURS = {
+ "Black":"#252525","White":"#f4f4f0","Bright Orange":"#f57c00","Dark Azur":"#0097a7",
+ "Dark Stone Grey":"#676b70","Medium Stone Grey":"#a5a5a5","Bright Blue":"#1565c0",
+ "Bright Red":"#d32f2f","Bright Yellow":"#fbc02d","Brick Yellow":"#d6b77b",
+ "Dark Green":"#2e6b3a","Reddish Brown":"#795548","Bright Yellowish Green":"#9ccc65",
+ "Flame Yellowish Orange":"#ffb74d","Light Purple":"#b39ddb","Medium Azur":"#4fc3f7",
+ "Sand Yellow":"#c7b58a","Silver Metallic":"#b0bec5","Transparent Blue":"#64b5f6",
+ "Transparent Bright Orange":"#ffcc80","Transparent Light Blue":"#b3e5fc","Transparent Red":"#ef9a9a",
+ "Multicombination":"#c7c7d1",
+}
+PROOF = ["6283413","6283415","6240610","6097664","6325504","6185551","4495935","370826","4177431","4121715","300126","6078296"]
+
+def group(row):
+    n=row["ElementName"].upper(); c=row["Category"]
+    if c in ("Bricks","Plates"): return "BUILD"
+    if any(k in n for k in ("BEAM","AXLE","GEAR","TOOTHED","PIN","PEG","BUSH","CONNECTOR","JOINT")): return "MECHANISM"
+    return "SPECIAL"
+
+def session():
+    s=requests.Session(); retry=Retry(total=5,connect=5,read=5,backoff_factor=.8,status_forcelist=(429,500,502,503,504),allowed_methods=frozenset(["GET"]))
+    s.mount("https://",HTTPAdapter(max_retries=retry)); s.headers.update({"User-Agent":"Mozilla/5.0 FLB-17101-GitHub-Pages/2.0","Accept":"image/*,*/*;q=.8"}); return s
+
+def sources(row):
+    e=row["ElementID"]; rel=row.get("ImageURL","")
+    return [u for u in [
+      f"https://www.lego.com{rel}" if rel else "",
+      f"https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/{e}.jpg",
+      f"https://images.brickset.com/parts/{e}.jpg",
+      f"https://images.brickset.com/parts/large/{e}.jpg",
+      f"https://cdn.rebrickable.com/media/parts/elements/{e}.jpg",
+    ] if u]
+
+def good(path):
+    try:
+        with Image.open(path) as im: im.verify()
+        return path.stat().st_size>400
+    except Exception: return False
+
+def download(row):
+    out=IMG/f"{row['ElementID']}.webp"
+    if good(out): return {"element":row["ElementID"],"status":"cached","source":"repo"}
+    s=session(); errors=[]
+    for url in sources(row):
+        try:
+            r=s.get(url,timeout=(15,45),allow_redirects=True)
+            if r.status_code!=200: errors.append(f"{url} HTTP {r.status_code}"); continue
+            with Image.open(io.BytesIO(r.content)) as im:
+                im.load(); im=im.convert("RGBA"); im.thumbnail((640,640),Image.Resampling.LANCZOS); im.save(out,"WEBP",quality=92,method=6)
+            if good(out): return {"element":row["ElementID"],"status":"downloaded","source":r.url,"sha256":hashlib.sha256(out.read_bytes()).hexdigest()}
+        except Exception as exc: errors.append(f"{url} {type(exc).__name__}: {exc}")
+    return {"element":row["ElementID"],"status":"failed","errors":errors}
+
+def fnt(size,bold=False):
+    p="/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    return ImageFont.truetype(p,size) 
