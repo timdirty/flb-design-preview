@@ -1,0 +1,22 @@
+ton class="tab" onclick="show('C',this)">Tray C</button></div>{"".join(trays)}</main><div class="modal" id="modal" onclick="if(event.target.id==='modal')closeM()"><div class="modalcard"><button class="close" onclick="closeM()">×</button><div class="modalgrid"><img id="mi"><div><h2 id="mn"></h2><table><tr><td>顏色</td><td id="mc"></td></tr><tr><td>數量</td><td id="mq"></td></tr><tr><td>功能</td><td id="mg"></td></tr><tr><td>類別</td><td id="mcat"></td></tr><tr><td>Design ID</td><td id="md"></td></tr><tr><td>Element ID</td><td id="me"></td></tr></table></div></div></div></div><script>function show(t,b){{document.querySelectorAll('.tray').forEach(x=>x.classList.remove('active'));document.getElementById('tray-'+t).classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active')}}function openPart(b){{const d=JSON.parse(b.dataset.part);mi.src=d.image;mn.textContent=d.name;mc.textContent=d.colour;mq.textContent='×'+d.qty;mg.textContent=d.group;mcat.textContent=d.category;md.textContent=d.design;me.textContent=d.element;modal.classList.add('open')}}function closeM(){{modal.classList.remove('open')}}document.getElementById('tray-A').classList.add('active');</script></body></html>'''
+    (ROOT/"index.html").write_text(html_text,encoding="utf-8")
+    (ROOT/"proof.html").write_text(html_text,encoding="utf-8")
+
+def main():
+    if not INV.exists(): raise SystemExit("inventory.csv missing")
+    rows=list(csv.DictReader(open(INV,encoding="utf-8-sig")))
+    if len(rows)!=218 or sum(int(r["Qty"]) for r in rows)!=850: raise SystemExit(f"bad inventory: {len(rows)} rows")
+    for r in rows: r["group"]=group(r)
+    results=[]
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        fut={pool.submit(download,r):r for r in rows}
+        for i,f in enumerate(as_completed(fut),1):
+            result=f.result(); results.append(result); print(f"[{i:03d}/218] {result['element']} {result['status']}",flush=True)
+    failed=[r for r in results if r["status"]=="failed"]
+    summary={"total":218,"success":218-len(failed),"failed":len(failed),"inventory_pieces":850,"design_colour_homes":218,"generated_at_utc":time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime())}
+    (REPORTS/"verification.json").write_text(json.dumps({"summary":summary,"results":sorted(results,key=lambda x:x["element"])},ensure_ascii=False,indent=2),encoding="utf-8")
+    if failed: print(json.dumps(failed,ensure_ascii=False,indent=2)); raise SystemExit(f"failed images: {len(failed)}")
+    proof_png(rows); page(rows,summary)
+    (ROOT/"README.md").write_text("# BOOST 17101 self-hosted real parts review\n\n218 verified local images.\n",encoding="utf-8")
+    print(json.dumps(summary,indent=2))
+if __name__=="__main__": main()
