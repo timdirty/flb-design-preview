@@ -1,0 +1,1320 @@
+{
+  "summary": {
+    "total": 218,
+    "success": 218,
+    "failed": 0,
+    "inventory_pieces": 850,
+    "design_colour_homes": 218,
+    "generated_at_utc": "2026-08-16T00:05:24Z"
+  },
+  "results": [
+    {
+      "element": "300121",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/300121.jpg",
+      "sha256": "385651125734874366efbc875a09a817d7913c7b49b195d931c744bc70bfe0e3"
+    },
+    {
+      "element": "300126",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/300126.jpg",
+      "sha256": "a37eac8b38a78b0aeee1fe84e6e79fb76eab62a452b99af7f864c7be377be2d3"
+    },
+    {
+      "element": "300501",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/300501.jpg",
+      "sha256": "fdcd10bc45ec0b98fe2399608a88070a992a76f768701402e403c14c26859d38"
+    },
+    {
+      "element": "300901",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/300901.jpg",
+      "sha256": "78a418b5fb7707df711e1374c449300d25ec601e2d09d650744cfd4bac6700fe"
+    },
+    {
+      "element": "301001",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/301001.jpg",
+      "sha256": "d853d0d209e8a18a9dea5c4abf0d59ce3477471949bbd4d6d8de09adde679f81"
+    },
+    {
+      "element": "301026",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/301026.jpg",
+      "sha256": "a3b6573589eacc94930fb1ac8381d824e5234fe1ede611fd07d72bbc167b4e1f"
+    },
+    {
+      "element": "302026",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/302026.jpg",
+      "sha256": "d6f5c363d44c15810bf3aaf813b71354d9d3fcb79641e846ea80ca4f4f0049bc"
+    },
+    {
+      "element": "302101",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltf23a23d77b40bbcf/302101.jpg",
+      "sha256": "2abf489ec69d3d5de023464cc970c6253483d5ce598190314210a51125c6161b"
+    },
+    {
+      "element": "303326",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/303326.jpg",
+      "sha256": "4be087b5763d6b48c609ed7024f3a5f51fa21b7e48898ee9dac11dd90fe3b838"
+    },
+    {
+      "element": "306821",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltfd19075b52f9271a/306821.jpg",
+      "sha256": "c70098191541df7d5a428317cf362174fd83ca24f1c208a53339d3bf74a8a148"
+    },
+    {
+      "element": "306823",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltda3c712d19bcebc1/306823.jpg",
+      "sha256": "257160ace9b3af225fca67917892e2a3aa1210542e5c03b78cc95b5c2e130d47"
+    },
+    {
+      "element": "3200126",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/3200126.jpg",
+      "sha256": "9ddc32b3293802c8313798cc5c9f663765cad324f235d55e4e525096529221f7"
+    },
+    {
+      "element": "346001",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt9783b493f6ff98a1/346001.jpg",
+      "sha256": "40f0bf07db42c0f7b04e22e48168d755ef91e76cd47eaa3057a860e421046f2d"
+    },
+    {
+      "element": "366526",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt481b96c97929952d/366526.jpg",
+      "sha256": "0629c7e92a5c74a8ac41b8c693cf1f18ca7b935569d23dc1f94570893cc9df14"
+    },
+    {
+      "element": "370001",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/370001.jpg",
+      "sha256": "1a305ebf2ef4d625cc106fd52b1b83ea39c712efe46af617995a712a705c80b2"
+    },
+    {
+      "element": "370826",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/370826.jpg",
+      "sha256": "791c0e24976a1372dd0983d70fc2d52870da8759964728b505272bd70436196a"
+    },
+    {
+      "element": "370921",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/370921.jpg",
+      "sha256": "12296dd25ba6b44ae148673c2626a22aec862aa87ee1f1bd35892719cef30132"
+    },
+    {
+      "element": "371001",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/371001.jpg",
+      "sha256": "66f19ea0fe994069bc7ad71e30100b9e692238c59931c647678e0850241bbedf"
+    },
+    {
+      "element": "396001",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/396001.jpg",
+      "sha256": "a666b0de48aa6f324f27ddfb2234f6f9d584adeee9fd9789d1cda3bc42a90c76"
+    },
+    {
+      "element": "403201",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/403201.jpg",
+      "sha256": "0683e5cd9a961f5907d4ba7959493bc2704a5dcf57785b607a54b63af0271060"
+    },
+    {
+      "element": "407024",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blte7307ea5d6326058/407024.jpg",
+      "sha256": "a7a69ff577aa06800b3c7c2097b676d7bed692d7531b98ec8891972286d9a826"
+    },
+    {
+      "element": "4121715",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt935b4468e2952081/4121715.jpg",
+      "sha256": "1c6f832edd90dedd57823e64c87cee363b222e3ecabc379a26e9550989b08357"
+    },
+    {
+      "element": "4142865",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4142865.jpg",
+      "sha256": "5e313b87c0c38e6dacae1094e1670230b88211e3a63df0b9380bda965c82e6d1"
+    },
+    {
+      "element": "4143005",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltc147c3c54ad1919b/4143005.jpg",
+      "sha256": "22b037d6b1f16210baad119d424ac6e25f323d3c6cf95fab6b4fe63ed37d3e4b"
+    },
+    {
+      "element": "4144024",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4144024.jpg",
+      "sha256": "eace5ccf33937edca21d1301314778b05b8a06c0a7cab14535f2a98f4fe45c18"
+    },
+    {
+      "element": "4158355",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt910206eaa7a45c8f/4158355.jpg",
+      "sha256": "0a007df55a486ebccf7f6e514e6ce177923e43f7f646b7d02329d17f0c90cd38"
+    },
+    {
+      "element": "4159007",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt27576e0a8c6b81ed/4159007.jpg",
+      "sha256": "aa696468510eb7804c4ec38c6ba21d728e9e8199738e8c729f18a32371551cbf"
+    },
+    {
+      "element": "4160393",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4160393.jpg",
+      "sha256": "99d55047b0b788a530fcd3ec0361de2ddf27c3ffd283f4996de3b983fdf9cd88"
+    },
+    {
+      "element": "4160593",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4160593.jpg",
+      "sha256": "2a5cba08f6f5fa87ada2f9ee52919443494b1e1e805c3d7eeb5bfa18197afa0c"
+    },
+    {
+      "element": "416201",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/416201.jpg",
+      "sha256": "43a65ae77d43d51f84f5f70d51e7724ad80d7941a5bf261d589b73489fc5e871"
+    },
+    {
+      "element": "4173332",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blte2ed13dd228bdc10/4173332.jpg",
+      "sha256": "987955c4ae2b80bf76e169553d0efb847a45cd86dbdfd1ef010db9f3d5941ffe"
+    },
+    {
+      "element": "4177431",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4177431.jpg",
+      "sha256": "f4a39f5b41f0f51b7afe34804185c65c0ea0def398f13f33083b3597dc97b5e3"
+    },
+    {
+      "element": "4180087",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt7b725217cf5b0345/4180087.jpg",
+      "sha256": "4f77ac5185f84b318775c713405591cd098a61c15f3f2db3e926f50b379c93cf"
+    },
+    {
+      "element": "4180548",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4180548.jpg",
+      "sha256": "c4d9c4e1cf52ee24c90158fbf14bee0e475e186ba66bd5b5ff8ecd1e4edc73b0"
+    },
+    {
+      "element": "4182751",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4182751.jpg",
+      "sha256": "aaaec606f46e68ddbfad4e9c1b0308130e20540af701d55dbefc6caecdca64f3"
+    },
+    {
+      "element": "4187122",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4187122.jpg",
+      "sha256": "4ea3ec3870156a290afa41c3e3c5231a427a60e908f5ddfd85998103577f640a"
+    },
+    {
+      "element": "4188771",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt86cfdd3449a66cdf/4188771.jpg",
+      "sha256": "709b571e7b95e3da59563016f3b8ff4100a4fd60f6259e250428667f64f51db6"
+    },
+    {
+      "element": "4198367",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4198367.jpg",
+      "sha256": "ebb9f96abcff0ea77e1a704dfd68044f5067ceb224cf041f7785c86c899d68b4"
+    },
+    {
+      "element": "4205760",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4205760.jpg",
+      "sha256": "196f3eefbba1a64bb04afc13c0e9ad9f881f0ff9f4b8e0050c4a5dd14e6efa3d"
+    },
+    {
+      "element": "4206482",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltbb48cde4adaa84c6/4206482.jpg",
+      "sha256": "308b1dc840431d83cea8f10c1947198480ef3b0976ea5926a9509549458e8ef6"
+    },
+    {
+      "element": "4210997",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt97a7c652adde3f2c/4210997.jpg",
+      "sha256": "9b46f640cb723b5ef432181434dfba043ee211419245cd312194c639ef3b908e"
+    },
+    {
+      "element": "4211001",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211001.jpg",
+      "sha256": "03c8dff1cc5b37913ca5e3c351b1df8e295abf7fd3ec914a782d04ec74ca1e9c"
+    },
+    {
+      "element": "4211060",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211060.jpg",
+      "sha256": "67d9fbccbaef6c5a60ff4bfc6387d61cf10418d283145f196850993926eb2d76"
+    },
+    {
+      "element": "4211063",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211063.jpg",
+      "sha256": "f5f9c578981a2e62f096a3f076a7cb57d8b431d0f5141e84942b8a4cf776a449"
+    },
+    {
+      "element": "4211360",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211360.jpg",
+      "sha256": "c3dcf2a983375df1602bf4ba526de307357e2534444302ef0ba4663b2cd2c10c"
+    },
+    {
+      "element": "4211397",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211397.jpg",
+      "sha256": "3bac3bfed7c7749ff7334e7a1a97f44d579dce3e126ecd7181202911795cec74"
+    },
+    {
+      "element": "4211428",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211428.jpg",
+      "sha256": "c3b7a89079029bbd9f379d22ee64a85e2f2cd0c5071e1920fa392f7c37b5b684"
+    },
+    {
+      "element": "4211536",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211536.jpg",
+      "sha256": "10cabcebcd903ccbd6bd6064a42d735fcb7dec45cefcebed3abbb051cd6a3ea8"
+    },
+    {
+      "element": "4211714",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211714.jpg",
+      "sha256": "40d3cc853bca94e3b2cd80a00a6afa914c6c952940c5f5c98401e6c5f7bf3563"
+    },
+    {
+      "element": "4211758",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt234f80357874cb69/4211758.jpg",
+      "sha256": "fbc2926ebeb00a2c79aecf8d75a22487569c3ce534cbbec2c862c6a7ab87d13a"
+    },
+    {
+      "element": "4211807",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt20a25386ffb1e59c/4211807.jpg",
+      "sha256": "9d792f5d743c7f400f4daeda33a7693ef710284e6eef4944cfc8bbd3d40ef56b"
+    },
+    {
+      "element": "4211865",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4211865.jpg",
+      "sha256": "81be9446500e6eaa672aeeeac3eb498c871d07ef81d62d75c33277a69298ef61"
+    },
+    {
+      "element": "4213374",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4213374.jpg",
+      "sha256": "6c6d242bb050cc061655a22d41c09cffba40e17ec18ac727122b85578dd220b0"
+    },
+    {
+      "element": "4220632",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blte84058384b41e8e6/4220632.jpg",
+      "sha256": "2b243dc62442536e4974931338e786218b7741b5f958250fd0d5626e963c2918"
+    },
+    {
+      "element": "4243819",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt00da09df50c8de05/4243819.jpg",
+      "sha256": "7c2e9d60fa4038f2a6d80e6dcfa2ef3b37521d0fcedd5917bc851554074e915a"
+    },
+    {
+      "element": "4244627",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt616604b43d3daffb/4244627.jpg",
+      "sha256": "04c1377558054e02212f0207eb23d1a41f47ec1f8f9224e10840da09a63c4724"
+    },
+    {
+      "element": "4251393",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4251393.jpg",
+      "sha256": "739465f7dd3a190d3fb2c15384b070ec82ddca6b7bdc55e62ed72ab896265cf1"
+    },
+    {
+      "element": "4251394",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4251394.jpg",
+      "sha256": "11db8acabdcc5ab0135b3ed8c0cc70721e4ffcbd0698f2a827cf90213ab6e6ea"
+    },
+    {
+      "element": "4255563",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4255563.jpg",
+      "sha256": "69d9504fceaecbeb96887276bfcd8f9d024660e16c5bdf40c95dfab67d435c97"
+    },
+    {
+      "element": "4257526",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltaec51b168f7eec0f/4257526.jpg",
+      "sha256": "4dbdb3dfd43df2a6b399bab12e51dcf3d53911f2d07742f3318a1006c2091717"
+    },
+    {
+      "element": "4299625",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4299625.jpg",
+      "sha256": "cb7108ffc6fe4a39250729d187da7bfe2f30762159a8370df78867049b0cf275"
+    },
+    {
+      "element": "447726",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltde5fa31aa079c649/447726.jpg",
+      "sha256": "3a01b239fd16ba9ead66d0bac519eec3900b52343b1b79f3eeacc4170873501c"
+    },
+    {
+      "element": "4495935",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltf07ddceda1958163/4495935.jpg",
+      "sha256": "237b5968a29dbae671949dbc0e977df4366a197761510495378af7189e320e2d"
+    },
+    {
+      "element": "4499858",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4499858.jpg",
+      "sha256": "ed3235e77ca7eca2418ed3af814853597cd45af02df049830237918c2ce19934"
+    },
+    {
+      "element": "4508553",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt992504e083dfab2f/4508553.jpg",
+      "sha256": "8e750c02deb527328429f23e0b77176d6b589926e2fc2230c1ffb624d62c375c"
+    },
+    {
+      "element": "4508661",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4508661.jpg",
+      "sha256": "0b4a15d87b6eb53a7f371602524a74425fb3e02b1b871f7cb8d6680d49850a5d"
+    },
+    {
+      "element": "4513174",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4513174.jpg",
+      "sha256": "ca9180b055d533333dccde2198c2166aecdb8fa16c9aae86158d3d54588bb7b5"
+    },
+    {
+      "element": "4514553",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4514553.jpg",
+      "sha256": "46f4541855734498e90b758b5b14e8927b2d0ee5fa265391d9df0e66e27fa672"
+    },
+    {
+      "element": "4515351",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt6970931d9ec24e98/4515351.jpg",
+      "sha256": "fe4903e87ecd2b79b7f5f4ead42c93c5a327c8343cbd08097963da538dbdccbc"
+    },
+    {
+      "element": "4522678",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4522678.jpg",
+      "sha256": "2686afe90d5b423c2e21b19e8847e27699c42c18a453e350c130bc4a0bedeea5"
+    },
+    {
+      "element": "4523145",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4523145.jpg",
+      "sha256": "9d2f811cca3b7c3fab1d80cf1d026837febd6d3cb110f024faeaed99a9074472"
+    },
+    {
+      "element": "4527945",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4527945.jpg",
+      "sha256": "528be1a2b52eddcfca2f612a574c691cf2a57e38727d35a8fa24508f0e63fd14"
+    },
+    {
+      "element": "4535768",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4535768.jpg",
+      "sha256": "e8a68c52a4d810edab758f0f850269b343ad079c1a885ce73293d6e7dca4c49d"
+    },
+    {
+      "element": "4544140",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4544140.jpg",
+      "sha256": "9fbf20636e5d7d770a8fb91c940439d028fceaadb1756951f7ee8b4f7e617ea6"
+    },
+    {
+      "element": "4547489",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt48b2e2d81a120821/4547489.jpg",
+      "sha256": "81bc2391ec8e29016ee27be572b8246e4972f94124d3273fd50664e53dc588b2"
+    },
+    {
+      "element": "4558168",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltb27d58276786afeb/4558168.jpg",
+      "sha256": "4ebd2069717ca496ccb2e45f9bec2178aaf629bcda6f022b5c622c901d0cd693"
+    },
+    {
+      "element": "4560178",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt65e96ce9b6cf5eda/4560178.jpg",
+      "sha256": "f3db0e7505318f8a88959d75f055b7377f297050934811f30c752b20878a885a"
+    },
+    {
+      "element": "4560179",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt70d3d4009b41edbb/4560179.jpg",
+      "sha256": "4a8f4ef2a75159c45ccc7f838b4b0b51bbdc210a300c559195ecc3b6d8d73c0c"
+    },
+    {
+      "element": "4560180",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt0bc951bf25a9db69/4560180.jpg",
+      "sha256": "11a1b063c8682949bb262447b666590160687d539706334208f21d30b84820ca"
+    },
+    {
+      "element": "4560181",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4560181.jpg",
+      "sha256": "360e23bc8a1a25861d01c67f1dbcfd127147a3eb06cdeab06a9681f93266126f"
+    },
+    {
+      "element": "4560182",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4560182.jpg",
+      "sha256": "cde03a25c39416a02dbb4eb26af68324dd7664131ef40d3f5f028a20b331713b"
+    },
+    {
+      "element": "4565452",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4565452.jpg",
+      "sha256": "19180e65318cce9f8b6333b61b9378214b2e3f4b743357b896f468a8afbc3d0a"
+    },
+    {
+      "element": "4566179",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4566179.jpg",
+      "sha256": "46daf52c425b040de1e84c5fb5a2506dfa769e790bb578e81c6ac9d23d408776"
+    },
+    {
+      "element": "4582543",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4582543.jpg",
+      "sha256": "29ef00c86955f6af86b0bbc15cbe0513bedc997f0f777793c6b63122c6c67604"
+    },
+    {
+      "element": "4582792",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4582792.jpg",
+      "sha256": "bf24ae260ac3efd8d2a3642f4548e39c1c4ec21bcf6127197e9904d43dda211e"
+    },
+    {
+      "element": "4585040",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4585040.jpg",
+      "sha256": "9bf6c2b32256515c0279780ecb15a77b88244aa727ef2015125452b19a60d306"
+    },
+    {
+      "element": "4599538",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4599538.jpg",
+      "sha256": "e4650c4d10ed6e401e97d3f332fcfe7babaa6dcb76d929971bd3e018b0a6766a"
+    },
+    {
+      "element": "4613153",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt1e614eac65fff277/4613153.jpg",
+      "sha256": "7bb9c17d367c41e4fdc1111a8101a9df332faa6004eebb967f8aa13afdde7ecd"
+    },
+    {
+      "element": "4619323",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4619323.jpg",
+      "sha256": "701e005d148d0b639fd8edec3b8f497704ab041006c033070f1a795580a522ae"
+    },
+    {
+      "element": "4629921",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4629921.jpg",
+      "sha256": "80a6a25b04d170a1f946d08d2ac4320f4dd845e3aa02e507b5ecd611da8a2466"
+    },
+    {
+      "element": "4640891",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4640891.jpg",
+      "sha256": "63f3f5a6e6ea1f49055030200fd809b94ac3bba9cda406ac8d4fd4f847849d9c"
+    },
+    {
+      "element": "4640901",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4640901.jpg",
+      "sha256": "2b896ba4350f5b822655bc79633e33c08957c140fb8c05b4daa1041731c1cf81"
+    },
+    {
+      "element": "4652235",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4652235.jpg",
+      "sha256": "2ba07dde462f6ccd85118a621dd9de69d3d136eb45502abcc0175ddb51b19596"
+    },
+    {
+      "element": "4653988",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt046b73e7f814525d/4653988.jpg",
+      "sha256": "27f07a6d2a815b883fb4b2593bbebb4e7fd1580a0018d9e11b99dee74a593bb7"
+    },
+    {
+      "element": "4662228",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4662228.jpg",
+      "sha256": "cb61becec2ccc9b2aacb76ef8a71ce99eae8017e747706446deaa43b3f843ab4"
+    },
+    {
+      "element": "4666579",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt31dd0cbe448ff6e3/4666579.jpg",
+      "sha256": "db678fbc077ee8d3086e6964a2a04882867c9b85185dfff4327e2cffb566fcd7"
+    },
+    {
+      "element": "4666999",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/4666999.jpg",
+      "sha256": "617a5dc0f4e448ac2b0cf4c24d742fa17bda3bd61b5f01f39556cd3daf84f60f"
+    },
+    {
+      "element": "6000650",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6000650.jpg",
+      "sha256": "c1f71ce15504124fe946ebb517b83c268ac8bbe5e8fce255e6028502324e063a"
+    },
+    {
+      "element": "6004345",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6004345.jpg",
+      "sha256": "343b439d45fe6f6ffeb6e029a47a8d0dfebbca657ee051ea794a755545573ba4"
+    },
+    {
+      "element": "6004943",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt87900a9e7c657875/6004943.jpg",
+      "sha256": "479a5b58ad658d8cbba6c593522e6fa7ccb9642bfb5e447bd336a92de476692b"
+    },
+    {
+      "element": "6012451",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6012451.jpg",
+      "sha256": "df24aa9385adbe8a90f3a88ebc75f44b64a19131c5a2235e9af544c9cafd24ca"
+    },
+    {
+      "element": "6015356",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6015356.jpg",
+      "sha256": "3212d90fec1f5c4307aed05f48ed3ab4809925f68ddab9c24c0cfc2ed5dfec7b"
+    },
+    {
+      "element": "6018101",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6018101.jpg",
+      "sha256": "9dc0749946b1add825451ff762663583bd3fbd8366f0fbb78a630e1156617e60"
+    },
+    {
+      "element": "6029163",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6029163.jpg",
+      "sha256": "86adba0be57295e90a33444afbb9b345a3f119d47e11b10dfeb721fdad087918"
+    },
+    {
+      "element": "6031839",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6031839.jpg",
+      "sha256": "3f94a40798c714fd934b5b050ef75798d44c9ffe61739524bf8b603c8f136969"
+    },
+    {
+      "element": "6031947",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blted88dec398872ea9/6031947.jpg",
+      "sha256": "004bae12f68bc378b4555ad60a20cae00a9f4a7c2e37d4624626ee5aaf78ba41"
+    },
+    {
+      "element": "6031962",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6031962.jpg",
+      "sha256": "2b5280915f6e271bd6e14e4e79a667fad3872756c68531b072bcaee6c5775ff9"
+    },
+    {
+      "element": "6034044",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6034044.jpg",
+      "sha256": "9d0b47c0854f33be18aa2422f2b6c6c5d2a719884b691048a3ceee851b112672"
+    },
+    {
+      "element": "6039479",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6039479.jpg",
+      "sha256": "c3a8ca833b7a89a1f04ca030706ae55658caace722990d754d0030a2a557e0e8"
+    },
+    {
+      "element": "6043639",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltc6aa438f7e6570b0/6043639.jpg",
+      "sha256": "d767bf57a3598b8e4a082de94d429b7d75d0c9abdf6036053f180723ca1b654b"
+    },
+    {
+      "element": "6046979",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltc18726b196e16083/6046979.jpg",
+      "sha256": "4bd1e86e108a3a7385919b18930a0a00d632d36edf64c30573e7389261a2e02e"
+    },
+    {
+      "element": "6057921",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6057921.jpg",
+      "sha256": "63eb9fc135591dac38c38b46357f5e89eebb14384879bcfd5f9afbf298c2afc6"
+    },
+    {
+      "element": "6062601",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6062601.jpg",
+      "sha256": "e58f668dcd4d7a65d48ef00464ebf62c9c7defd9fe5abecbcf859bac71ae9966"
+    },
+    {
+      "element": "6064131",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6064131.jpg",
+      "sha256": "d2dd5febe577303de0e958139b0bb7dd4ea15e34c4b69996490df014dd427b87"
+    },
+    {
+      "element": "6069002",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt5c39b866fe2ac99b/6069002.jpg",
+      "sha256": "ec86fad86ddfc4863df1410d7b9eff3e0e5c68ea1d7de9588b716010dda1b119"
+    },
+    {
+      "element": "6072627",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6072627.jpg",
+      "sha256": "b202d3595ea2021a0a9dd9b2468336e268bde0adaa02e4860655d41480185704"
+    },
+    {
+      "element": "6078296",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6078296.jpg",
+      "sha256": "1438f0a1721ae5530acc31b0eb57645aee399026d5216034e6315688a45f18e3"
+    },
+    {
+      "element": "6078297",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6078297.jpg",
+      "sha256": "96ce2c648bcb8b437bef15f93036ff7a81cf7f12738d2490967a2a044f6876c5"
+    },
+    {
+      "element": "6083620",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6083620.jpg",
+      "sha256": "0ca61cd2c28f23b72b6e483ed9985e503c53e5613efa51ee753a827efc1a35dd"
+    },
+    {
+      "element": "6089119",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6089119.jpg",
+      "sha256": "504a867d6620649eba8eea7c0a6764b744b3ba103a26a7ba6bbfe2e2aa757d22"
+    },
+    {
+      "element": "6089696",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt668798b1f9848473/6089696.jpg",
+      "sha256": "8ce13e8d661d1e51fd8a573c321ba82aa2958828086996a4460305c5c1056839"
+    },
+    {
+      "element": "6089698",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltb9ccb5ebc29282d7/6089698.jpg",
+      "sha256": "9e98fb537d74a82ee0b978e7827c5c41cebc65f32e933db8a12a316814f441e9"
+    },
+    {
+      "element": "6092256",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6092256.jpg",
+      "sha256": "adea218a9c1a407278fca126929cd872d27507ed20e08e113b32a6e4849eabbd"
+    },
+    {
+      "element": "6097664",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6097664.jpg",
+      "sha256": "57240f67b48221055a6d01b8d1bcec6bd57443e935d10aef4c07c5c3d515d10b"
+    },
+    {
+      "element": "6099730",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6099730.jpg",
+      "sha256": "76bea9d3a7fc65cff96cc85029cc0f3b7ea12bd48ca313bf5923f05a8d52bb9d"
+    },
+    {
+      "element": "6101857",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6101857.jpg",
+      "sha256": "6e9e27b05b08e75a62c523b6d2d84e7afac333dc998810ff44625efbb637f7b0"
+    },
+    {
+      "element": "6101937",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6101937.jpg",
+      "sha256": "6590f0e88e07d96c1c8827239ee7d3787f2f2d5cde96d2e2e0d4fafbcb7c5739"
+    },
+    {
+      "element": "6102618",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6102618.jpg",
+      "sha256": "53d2595c0bbaec0592757855d57484fc850526e9b1ee0920ad327e237b3bf764"
+    },
+    {
+      "element": "6117940",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt66dbce0800a18edc/6117940.jpg",
+      "sha256": "6aed31cf14af16f26371d254eac910ebc659e24d81f9351efc3c0292f718b358"
+    },
+    {
+      "element": "6120639",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6120639.jpg",
+      "sha256": "8646936438632153f5c3d0bf973580858b2855e49a581d4997537fa27f5d6704"
+    },
+    {
+      "element": "6121816",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6121816.jpg",
+      "sha256": "499a3de426121b7ea5e92c1bee529437f164d00f41e113d3ced43b11affd967c"
+    },
+    {
+      "element": "6123814",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/bltd2e536159e037b27/6123814.jpg",
+      "sha256": "2955c5235a8191646bfc4df92fb168c36b9e4c7e7fb0306c33ce31edac504892"
+    },
+    {
+      "element": "6129995",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6129995.jpg",
+      "sha256": "966e3c1dfc4d77a20bcb2092e3a5b6989d9cd3d9249b48b0ac627c07c86077b4"
+    },
+    {
+      "element": "6130005",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6130005.jpg",
+      "sha256": "501ba7a6ca7f92665fb6d279e84921bef56f847debd7f2da88aa22bd88bc88b7"
+    },
+    {
+      "element": "6130007",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6130007.jpg",
+      "sha256": "9c6155b51ce65a15675b9ae05015a0a4bb87a7d24632650c1fa99c43ebd8f02a"
+    },
+    {
+      "element": "6130009",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6130009.jpg",
+      "sha256": "1002591b719c3045077fa85f6cb907dbd403c04f26a0ae3fd1c5c103805be8c0"
+    },
+    {
+      "element": "6131571",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6131571.jpg",
+      "sha256": "3161c6058fcd2da33d753a9aa9ee4e5284e57a1d6adcf0387fce0bba3bba15fd"
+    },
+    {
+      "element": "6133119",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6133119.jpg",
+      "sha256": "e13bb2fd2257f1374c388c4f3e9316d13b937ed0cd148825b06137025f16ce28"
+    },
+    {
+      "element": "6133930",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6133930.jpg",
+      "sha256": "2638fa7f4df1cf2604a80c9be0d24099e01ed803b07d7df6131cc73b7496e606"
+    },
+    {
+      "element": "6135086",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6135086.jpg",
+      "sha256": "75c97b38089802891b5ef97689717d1408f8e41a8fec89e4a529a2cff92a898d"
+    },
+    {
+      "element": "6135130",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6135130.jpg",
+      "sha256": "f11de247e4df16653f8cfcd48c150e4b44583bc51406b780640f0e1e1654cd41"
+    },
+    {
+      "element": "6135494",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6135494.jpg",
+      "sha256": "0f68fb72312b73b6a8d0d25bd27f9f049b5e5cb8266366609ad4d4283b8fd592"
+    },
+    {
+      "element": "6136419",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6136419.jpg",
+      "sha256": "b8864b621b0e9ff1cfa85ba4cf429a0fb3224013213f8fffad4b6b26361b90e1"
+    },
+    {
+      "element": "6137300",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6137300.jpg",
+      "sha256": "5b3224d62db63cffc4fbef718207295d8fce01fa96b53745ec20a1b49a6c20b6"
+    },
+    {
+      "element": "6138487",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6138487.jpg",
+      "sha256": "34be567b2cded5b28b4b71a1349c2798483d59f7f87487016785004817f5628b"
+    },
+    {
+      "element": "614301",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/614301.jpg",
+      "sha256": "910085d2ab4ad365dabd805680c23ad2b861f7aa39b0d49f23e8d47d1565019f"
+    },
+    {
+      "element": "6143851",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6143851.jpg",
+      "sha256": "907f8e02d65ccd832db222aa4ffe75201d26c066e77fac7556d75383cfc9db49"
+    },
+    {
+      "element": "6144149",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6144149.jpg",
+      "sha256": "346865806262ca1fddf2593f64910a5916f172dd1bbfd920d8b8bf43bd2670ee"
+    },
+    {
+      "element": "6146225",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6146225.jpg",
+      "sha256": "2ec0c9c5e2a42baaa2bd022cb6e42809749db53e34cdc51753afb93741537be2"
+    },
+    {
+      "element": "6147052",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6147052.jpg",
+      "sha256": "0debb1f7ff29cfb13b7675c9215588561f936f8592b2926cc6879ba07015d8b0"
+    },
+    {
+      "element": "6151289",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6151289.jpg",
+      "sha256": "6d8eeb32f0095e5e87eecdde315ec48b41d61afeee368aa7826ce0ebb1dbc760"
+    },
+    {
+      "element": "6151664",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6151664.jpg",
+      "sha256": "e46b641065f4143c5453628a529afa1e777dda1dc59e0797c156faf07d232fc5"
+    },
+    {
+      "element": "6151670",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6151670.jpg",
+      "sha256": "17802665bf69b682c6edc433bf5618b1630a55f4d8fc0b7a1e9cb041c1d8e188"
+    },
+    {
+      "element": "6151672",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6151672.jpg",
+      "sha256": "bbf49755802d945378565e11be8908e510a972db5942a77e5c793e0887ab0f65"
+    },
+    {
+      "element": "6159763",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6159763.jpg",
+      "sha256": "92e4186545ed2e89d4b6d4ce464e3e259866c2a87b6c632e34a60622e3997443"
+    },
+    {
+      "element": "6163687",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6163687.jpg",
+      "sha256": "9e3dd551f70e67a449f75758418af80eb559f601669d3bd7f15d6ee4bb644a6f"
+    },
+    {
+      "element": "6167281",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6167281.jpg",
+      "sha256": "830fe0de691b70f9619fc2cc325102deed57972acfe4ed001c7ac7b5ce792db5"
+    },
+    {
+      "element": "6167923",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6167923.jpg",
+      "sha256": "e5b9754e8e1e671cb4ac97ac0373847eae4f30a9e3d39ebb8c18c2fbd7f44fbd"
+    },
+    {
+      "element": "6168615",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6168615.jpg",
+      "sha256": "c475fda0f7ab5ce1dc2321f15e3e1d2dd4dec162025b3ca2adbd9692ea08f066"
+    },
+    {
+      "element": "6171733",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6171733.jpg",
+      "sha256": "72f5b6d1710f2ec0278d240da42b69be2064206db02422a561b27ba94be1ba47"
+    },
+    {
+      "element": "6173119",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6173119.jpg",
+      "sha256": "ee2d4a01dd379b31d55a67be0b89da726eebdff5c8c326daeff5c0876699f42d"
+    },
+    {
+      "element": "6179182",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6179182.jpg",
+      "sha256": "579cd8f0e85bfbea904d1eaf11c5f5317ed1652d630a96b83997216899fd70c9"
+    },
+    {
+      "element": "6185545",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6185545.jpg",
+      "sha256": "9e2d3ece95a249a135af0d4eb2356859a99590e5fdf96b4d6d3b6e8b4a13e9ca"
+    },
+    {
+      "element": "6185546",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6185546.jpg",
+      "sha256": "7e91de74ac24fa03065e02e71d45c5a0f0a48724efe9fb9735eb1d547c9a6045"
+    },
+    {
+      "element": "6185547",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6185547.jpg",
+      "sha256": "dc398c6a4ddba2863349ea8cc7b7075ebf71817bf7e59bc9f848e88d211a0394"
+    },
+    {
+      "element": "6185548",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6185548.jpg",
+      "sha256": "c63e9be9d24845d888dff60aa26305403cc13ce3e150af590c51eab7d5d7b41d"
+    },
+    {
+      "element": "6185551",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6185551.jpg",
+      "sha256": "1cdbd9dce195ba05646c5bb1c8d00f9c59f8d9f9e85423650423bf7b4540d689"
+    },
+    {
+      "element": "6188466",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6188466.jpg",
+      "sha256": "9bf3da478dd8ec1ea670566f7ceb85822531124984d227e4839f40f32296abb1"
+    },
+    {
+      "element": "6192309",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6192309.jpg",
+      "sha256": "32147e21c46114dbd2b92a7f4df2676f6e8112065fcb1879a88b3d7131c8cab2"
+    },
+    {
+      "element": "6193782",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6193782.jpg",
+      "sha256": "16bc46daae2a3683b9ec3a6b545b7fc8b75b928caa3a1e968b0c7557682324cc"
+    },
+    {
+      "element": "6194493",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6194493.jpg",
+      "sha256": "ce298d6427e956f93e383a50af1a151469fe64c98ab567421df63a4fbdd98ba4"
+    },
+    {
+      "element": "6194498",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6194498.jpg",
+      "sha256": "b91fa936b5169d70499642ecb3725b2d42e1a7eacbf2ab47f0076472e0e55a54"
+    },
+    {
+      "element": "6194502",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6194502.jpg",
+      "sha256": "ba26ed639bc611edb2ae58778bceec7ccdcf914744ccfa4993b4ea94081fbb70"
+    },
+    {
+      "element": "6196217",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6196217.jpg",
+      "sha256": "3f528482d8e96c6d16657a582344d1f192757486ed94fd7aaf8c3bc3bf1df044"
+    },
+    {
+      "element": "6197913",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6197913.jpg",
+      "sha256": "20aa5239fe6adb6165572d341484e16491a6d42ed66e4343f64ad3b1fa0d5668"
+    },
+    {
+      "element": "6206240",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6206240.jpg",
+      "sha256": "3b3fb0d06447a79e63ba84c9e28b6cd9993ecf695814aab7635f3125ad3f9a7f"
+    },
+    {
+      "element": "6206248",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6206248.jpg",
+      "sha256": "e1283f1f0b24224aa52e9ce9e4191e68422ab9c55db2343af744eab2701e048e"
+    },
+    {
+      "element": "6240515",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6240515.jpg",
+      "sha256": "5f4e66a3f73aa60c22ebbc6ddd68990ecef0764cd77e4da62047d50646f2e9ff"
+    },
+    {
+      "element": "6240610",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6240610.jpg",
+      "sha256": "f73cd44147efaabbe45692547e4bb6cd338a9b9ea9f87c8d21ffa965ffee7b0e"
+    },
+    {
+      "element": "6244905",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt3500bf9c29f9044a/6244905.jpg",
+      "sha256": "97527d39507ba4e5685d40d2460af971fa52f45175e457f938654ee8fa44e6b5"
+    },
+    {
+      "element": "6244906",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6244906.jpg",
+      "sha256": "f7f73b22956a64af479138938d5294f119ad0539ddfc57067e4c53f3571cb0af"
+    },
+    {
+      "element": "6249128",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6249128.jpg",
+      "sha256": "7f48da9fce1fd2794b872afd05207d4b002e2c69f126034225de9381b83e0dd0"
+    },
+    {
+      "element": "6252319",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6252319.jpg",
+      "sha256": "d406bfb988993600e7a105909242ee7e65b2991d5a8c910b9eb04c03779d2d5c"
+    },
+    {
+      "element": "6261377",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6261377.jpg",
+      "sha256": "da3c20cb249fc41a84412081d69df4c72d8153b4cc81d2f88fd138ac7d98e3f0"
+    },
+    {
+      "element": "6271167",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6271167.jpg",
+      "sha256": "bd32af78128669d95932e3107f00c19ad3c281bb03371ad0e7aa68576f51f752"
+    },
+    {
+      "element": "6271820",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6271820.jpg",
+      "sha256": "67ce1fcb7fa605aaa4326a38ce0ddb300f4ead9200033b6758d0d88bafbe11bd"
+    },
+    {
+      "element": "6271874",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6271874.jpg",
+      "sha256": "775ee08d4af59d7a53679c1e401ed7fc6dfcd4b6dc8fefa65d318e21ac2f2a74"
+    },
+    {
+      "element": "6273708",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6273708.jpg",
+      "sha256": "affa269daee9c8b5a5817f5a41659bd9011f1e5a4491eb8ed5d2ec9b23bb6642"
+    },
+    {
+      "element": "6275401",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6275401.jpg",
+      "sha256": "44a5b0e372f3e90079886a30ed670566a2da453253ad76a398ca50db539b6e6b"
+    },
+    {
+      "element": "6276981",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6276981.jpg",
+      "sha256": "28ff7df5bdb6faae821eed5a2af172d9fb36261eef9e1deb333343f357e517ba"
+    },
+    {
+      "element": "6278133",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6278133.jpg",
+      "sha256": "9506bcb7edec2f54e8c22e9b89775c25acb9360629bff0fb4c28df76985ff679"
+    },
+    {
+      "element": "6278412",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6278412.jpg",
+      "sha256": "7eabd18c5a9bef739af517d9b5a385be71194609306b1be5ba2a42a3b8187d58"
+    },
+    {
+      "element": "6278974",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6278974.jpg",
+      "sha256": "c814d7b207c9c98b3427c09bb7608cde072af3ad1ff3729f93d6c62cd846154a"
+    },
+    {
+      "element": "6280386",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6280386.jpg",
+      "sha256": "0ade783ecb58004aead4e317104b4f46d8eacb19cb2161daa124e20d52fea613"
+    },
+    {
+      "element": "6283413",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6283413.jpg",
+      "sha256": "92f94669bfdb1d22045ee6d9222b9230ab1570311367168b369cd0521f6c00cb"
+    },
+    {
+      "element": "6283415",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6283415.jpg",
+      "sha256": "7651fe45c504bd2954d5059bdbf1586d0cff7af61274c107847404b3e261612f"
+    },
+    {
+      "element": "6284070",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6284070.jpg",
+      "sha256": "9bd680bc2c4141ee7da9baae1de197e4da7d4954818fa31f6b3469911a5d624d"
+    },
+    {
+      "element": "6284582",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6284582.jpg",
+      "sha256": "9358d7793f0676bb644ed3d3f313df1f857f50810bc7a123171196d3e14f5f9f"
+    },
+    {
+      "element": "6285777",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6285777.jpg",
+      "sha256": "b17db065927f1eb40276629fc0c4ec1dd3cfc9bde64a5e4597aafb7c0141440b"
+    },
+    {
+      "element": "6313119",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6313119.jpg",
+      "sha256": "f9aae385447e9e65cfb3e1854e4afc32d852882232e249eace7ff91237e0e93c"
+    },
+    {
+      "element": "6321769",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6321769.jpg",
+      "sha256": "e1459d95a9cfce8d9a8e4bb6925e9e58ac61270d9c1a234d184e94e8c8232a9a"
+    },
+    {
+      "element": "6324639",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6324639.jpg",
+      "sha256": "5fb79023f7b0bbe5ddb10c0fc0393c60cf12bf41175d59fe6cf11af689e53e35"
+    },
+    {
+      "element": "6325504",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6325504.jpg",
+      "sha256": "bca66bd857f26507d537127faebd01c41ab23f9ebf69b94ff806f19a8cffde7a"
+    },
+    {
+      "element": "6326078",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blt91246691fed2abfb/6326078.jpg",
+      "sha256": "bb9165c7fd2da753afb25c2b4d2851a568c801a4d014b2867f87e66edc57d58d"
+    },
+    {
+      "element": "6326620",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6326620.jpg",
+      "sha256": "07188644a83f21c4b69dd57ada4e84e44a30562d00def40df3ba2b80c3832454"
+    },
+    {
+      "element": "6330158",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6330158.jpg",
+      "sha256": "439397cb8ffd6884314c4c8ad0d633005ed8153f6399cd2aadc86b3ed91057e1"
+    },
+    {
+      "element": "6331864",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6331864.jpg",
+      "sha256": "3065cb8bc6fcaedd16fd680f3cb610e32fdba606ed05b3bf6a7fe680c5988950"
+    },
+    {
+      "element": "6332151",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6332151.jpg",
+      "sha256": "098c2a3bcfe425b95b2d9d6100ebf74a65f8a549c0111ac923ff0c601ad1023e"
+    },
+    {
+      "element": "6344752",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6344752.jpg",
+      "sha256": "a5641b435ff7970998ebb804e8707508de4225219272bbb2aa7a5d23f2902f2a"
+    },
+    {
+      "element": "6344864",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6344864.jpg",
+      "sha256": "c05977c5e7c76f8d8ca40d01fb1e872919218c4af13c72cc7c8378b7e3ab72e3"
+    },
+    {
+      "element": "6356158",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6356158.jpg",
+      "sha256": "c804c405c48eb3663055070c9f78f846663bc7b6757569264a8584855ab615d0"
+    },
+    {
+      "element": "6359224",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6359224.jpg",
+      "sha256": "a2d552fde65e4cce8b62772246d30eff130b866b93b23cd5c5a84d1ecd6dc581"
+    },
+    {
+      "element": "6361170",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/cs/set/assets/blte40ebe4e7a149af1/6361170.jpg",
+      "sha256": "407150143b915ecc84b64c5705bba438f6a82244da256c4f68fc51cbb42db9ec"
+    },
+    {
+      "element": "6375678",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6375678.jpg",
+      "sha256": "8be886e76568ee4cce91cbc7f7f7eb81d060df1bfc5eb283d0953a58227c7d99"
+    },
+    {
+      "element": "6403936",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6403936.jpg",
+      "sha256": "095482d5b0ee383ee9312bad3825d9d38aa2d42f44d20fe394b9e2976916dcb8"
+    },
+    {
+      "element": "6411366",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6411366.jpg",
+      "sha256": "fb19edf4e21bda057b7a2fe53a2fefcbf042581f1197ecd0e70f33e70da67716"
+    },
+    {
+      "element": "6448318",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6448318.jpg",
+      "sha256": "9119ad53c20243fea9f6fe0791cf88770ca06fb19a4c210da385033700f90407"
+    },
+    {
+      "element": "6457282",
+      "status": "downloaded",
+      "source": "https://www.lego.com/cdn/product-assets/element.img.lod5photo.192x192/6457282.jpg",
+      "sha256": "af79b3a5dc0213282f9c633c1a1666426f350bda0f49ec4d10054e8b03dc21a3"
+    }
+  ]
+}
