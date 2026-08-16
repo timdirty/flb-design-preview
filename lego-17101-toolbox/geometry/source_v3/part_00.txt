@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse, csv, json, math, os, re, shutil
+from collections import defaultdict, deque
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable
+
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from shapely.affinity import translate
+from shapely.geometry import Polygon, MultiPolygon, GeometryCollection
+from shapely.ops import unary_union
+
+LDU_MM = 0.4
+OFFSET_MM = 0.1
+AXIS_NAMES = {0: "YZ", 1: "XZ", 2: "XY"}
+
+@dataclass
+class PartResult:
+    design_id: str
+    status: str
+    source_file: str | None
+    projection: str | None
+    width_mm: float | None
+    height_mm: float | None
+    thickness_mm: float | None
+    area_mm2: float | None
+    svg_file: str | None
+    error: str | None = None
+
+
+def clean_ref(name: str) -> str:
+    return name.strip().replace("\\", "/").lower()
+
+
+class LDraw:
+    def __init__(self, root: Path):
+        self.root = root
+        self.cache: dict[Path, np.ndarray] = {}
+        self.part_index: dict[str, list[Path]] = {}
+        for path in (root / "parts").rglob("*.dat"):
+            self.part_index.setdefault(path.stem.lower(), []).append(path)
+
+    @staticmethod
+    def normalise_candidate(value: str) -> str:
+        value = value.strip().lower().replace("\\", "/")
+        if value.endswith(".dat"):
+            value = value[:-4]
+        return value
+
+    def part_path(self, design_id: str, allow_prefix: bool = True) -> tuple[Path | None, str]:
+        key = self.normalise_candidate(design_id)
+        exact = self.root / "parts" / f"{key}.dat"
+        if exact.exists():
+            return exact, "exact"
+        matches = self.part_index.get(key, [])
+        if matches:
+            return sorted(matches, key=lambda p: (len(p.name), str(p)))[0], "indexed"
+        if allow_prefix:
+            # LEGO/Rebrickable IDs occasionally have an LDraw suffix. Prefer the shortest numeric-prefix match.
+            prefix = [p for stem, ps in self.part_index.items() if stem.startswith(key) for p in ps]
+            if prefix:
+                return sorted(prefix, key=lambda p: (len(p.stem), str(p)))[0], "prefix"
+        return None, "missing"
+
+    def resolve_ref(self, current: Path, ref: str) -> Path | None:
+        r = clean_ref(ref)
+        candidates = [
+            current.parent / r,
+            self.root / r,
+            self.root / "parts" / r,
+            self.root / "p" / r,
+            self.root / "parts" / "s" / r.removeprefix("s/"),
+            self.root / "p" / "48" / r.removeprefix("48/"),
+            self.root / "p" / "8" / r.removeprefix("8/"),
+        ]
+        for path in candidates:
+            if path.exists():
+                return path.resolve()
+        return None
+
+    def triangles(self, path: Path, stack: tuple[Path, ...] = ()) -> np.ndarray:
+        path = path.resolve()
+        if path in self.cache:
+            return self.cache[path]
+        if path in stack or len(stack) > 70:
+            return np.empty((0, 3, 3), dtype=float)
+        triangles: list[np.ndarray] = []
+        try:
+            lines = path.read_text(encoding="utf-8", errors="ignore").splitlines()
+        except Exception:
+            return np.empty((0, 3, 3), dtype=float)
+        for line in lines:
+            tokens = line.strip().split()
+            if not tokens:
+                continue
+            kind = tokens[0]
+            try:
+                if kind == "1" and len(tokens) >= 15:
+                    t = np.array([float(v) for v in tokens[2:5]], dtype=float)
+                    m = np.array([float(v) for v in tokens[5:14]], dtype=float).reshape(3, 3)
+                    child = self.resolve_ref(path, " ".join(tokens[14:]))
+                    if child is None:
+                        continue
+                    child_tri = self.triangles(child, stack + (path,))
+                    if len(child_tri):
+                        transformed = child_tri @ m.T + t
+                        triangles.append(transformed)
+                elif kind in ("3", "4"):
+                    count = 3 if kind == "3" else 4
+                    vals = [float(v) for v in tokens[2:2 + count * 3]]
+                    pts = np.array(vals, dtype=float).reshape(count, 3)
+                    if count == 3:
+                        triangles.append(pts[None, :, :])
+                    else:
+                        triangles.append(np.array([[pts[0], pts[1], pts[2]], [pts[0], pts[2], pts[3]]]))
+            except (ValueError, IndexError):
+                continue
+        out = np.concatenate(triangles, axis=0) if triangles else np.empty((0, 3, 3), dtype=float)
+        self.cache[path] = out
+        return out
+
+
+class AliasResolver:
+    """Resolve modern LEGO Design IDs to Rebrickable/LDraw part numbers.
+
+    `elements.csv` is the strongest bridge because it links an exact LEGO element
+    number and design ID to a Rebrickable part_num. `part_relationships.csv` then
+    expands known mold/replacement/alias relationships.
+    """
+
+    def __init__(self, elements: Path | None = None, relationships: Path | None = None):
+        self.by_element: dict[str, set[str]] = defaultdict(set)
+        self.by_design: dict[str, set[str]] = defaultdict(set)
+        self.graph: dict[str, set[str]] = defaultdict(set)
+        if elements and elements.exists():
+            with elements.open(encoding="utf-8-sig", errors="ignore") as handle:
+                for row in csv.DictReader(handle):
+                    part = (row.get("part_num") or "").strip()
+                    element = (row.get("element_id") or "").strip()
+                    design = (row.get("design_id") or "").strip()
+                    if not part:
+                        continue
+                    if element:
+                        self.by_element[element].add(part)
+                    if design:
+                        self.by_design[design].add(part)
+        if relationships and relationships.exists():
+            with relationships.open(encodin
