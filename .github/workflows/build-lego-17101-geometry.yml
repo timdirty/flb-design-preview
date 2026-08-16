@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "lego-17101-toolbox/geometry/build_geometry.py.gz.b64"
+      - "lego-17101-toolbox/geometry/source_v3/**"
       - ".github/workflows/build-lego-17101-geometry.yml"
 
 permissions:
@@ -38,15 +38,13 @@ jobs:
           git clone --depth 1 https://github.com/pybricks/ldraw.git /tmp/ldraw
           git clone --depth 1 https://github.com/jdlien/lego-label-search.git /tmp/lego-label-search
 
-      - name: Decode and validate geometry builder
+      - name: Assemble and validate geometry builder
         run: |
-          python - <<'PY'
-          import base64, gzip
-          from pathlib import Path
-          src = Path('lego-17101-toolbox/geometry/build_geometry.py.gz.b64')
-          dst = Path('lego-17101-toolbox/geometry/build_geometry.py')
-          dst.write_bytes(gzip.decompress(base64.b64decode(src.read_text().strip())))
-          PY
+          cat lego-17101-toolbox/geometry/source_v3/part_00.txt \
+              lego-17101-toolbox/geometry/source_v3/part_01.txt \
+              lego-17101-toolbox/geometry/source_v3/part_02.txt \
+              lego-17101-toolbox/geometry/source_v3/part_03.txt \
+              > lego-17101-toolbox/geometry/build_geometry.py
           python -m py_compile lego-17101-toolbox/geometry/build_geometry.py
 
       - name: Generate exact projected silhouettes and storage report
