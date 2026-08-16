@@ -1,0 +1,38 @@
+if Path(p).exists() else ImageFont.load_default()
+
+def proof_png(rows):
+    selected=[next(r for r in rows if r["ElementID"]==e) for e in PROOF]
+    W,H=2400,1800; canvas=Image.new("RGB",(W,H),(238,240,242)); d=ImageDraw.Draw(canvas)
+    d.text((70,30),"LEGO BOOST 17101 · 12 REAL PART IMAGE PROOF",font=fnt(42,True),fill=(25,27,30))
+    cw=(W-224)//4; ch=(H-236)//3
+    for i,r in enumerate(selected):
+        x=70+(i%4)*(cw+28); y=125+(i//4)*(ch+28)
+        d.rounded_rectangle((x,y,x+cw,y+ch),radius=28,fill="white",outline=(215,220,225),width=3)
+        with Image.open(IMG/f"{r['ElementID']}.webp") as im:
+            im=ImageOps.contain(im.convert("RGBA"),(cw-48,ch-120),Image.Resampling.LANCZOS); canvas.paste(im,(x+(cw-im.width)//2,y+18+(ch-120-im.height)//2),im)
+        d.text((x+18,y+ch-88),r["ElementName"][:42],font=fnt(18,True),fill=(25,27,30))
+        d.text((x+18,y+ch-49),f"{r['Colour']} · Element {r['ElementID']} · Design {r['DesignID']} · ×{r['Qty']}",font=fnt(14),fill=(90,96,104))
+    canvas.save(STATIC/"proof-12.png",optimize=True)
+
+def esc(x): return html.escape(str(x),quote=True)
+def card(r):
+    data=esc(json.dumps({"name":r["ElementName"],"colour":r["Colour"],"qty":int(r["Qty"]),"category":r["Category"],"group":r["group"],"design":r["DesignID"],"element":r["ElementID"],"image":f"images/{r['ElementID']}.webp"},ensure_ascii=False))
+    return f'<button class="part g-{r["group"].lower()}" data-part="{data}" onclick="openPart(this)"><span class="badge">{r["group"][0]}</span><img src="images/{r["ElementID"]}.webp" alt="{esc(r["ElementName"])}"><span class="qty">×{r["Qty"]}</span><strong>{r["DesignID"]}</strong><span class="notch"></span></button>'
+
+def page(rows, summary):
+    proof=''.join(f'<article><img src="images/{r["ElementID"]}.webp"><strong>{esc(r["ElementName"])}</strong><small>{r["Colour"]} · Element {r["ElementID"]} · ×{r["Qty"]}</small></article>' for r in [next(r for r in rows if r["ElementID"]==e) for e in PROOF])
+    trays=[]
+    for t,colours in TRAYS.items():
+        sections=[]
+        for colour in colours:
+            cr=[r for r in rows if r["Colour"]==colour]
+            if not cr: continue
+            groups=[]
+            for g,label in (("BUILD","BUILD｜磚／板"),("MECHANISM","MECHANISM｜梁／軸／齒輪／連接件"),("SPECIAL","SPECIAL｜動力／輪組／特殊件")):
+                gr=[r for r in cr if r["group"]==g]
+                if gr: groups.append(f'<div class="func"><h4>{label}</h4><div class="grid">{"".join(card(r) for r in gr)}</div></div>')
+            colour_hex=COLOURS.get(colour,"#aaa"); pieces=sum(int(r["Qty"]) for r in cr)
+            sections.append(f'<section class="colour" style="--c:{colour_hex}"><h3>{esc(colour)} <span>{pieces} pcs · {len(cr)} homes</span></h3>{"".join(groups)}</section>')
+        trays.append(f'<div class="tray" id="tray-{t}"><div class="trayhead">Tray {t} · {sum(len([r for r in rows if r["Colour"]==c]) for c in colours)} homes · {sum(int(r["Qty"]) for r in rows if r["Colour"] in colours)} pieces</div>{"".join(sections)}</div>')
+    html_text=f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FLB BOOST 17101 真實零件配置</title><style>
+*{{box-sizing:border-box}}body{{margin:0;background:#eef0f2;color:#17191c;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}}header{{position:sticky;top:0;z-index:50;background:#fffffff2;backdrop-filter:blur(16px);border-bottom:1px solid #d9dde1}}.head{{max-width:1500px;margin:auto;padding:13px 18px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}}h1{{font-size:19px;margin:0}}.ok{{background:#dff6e7;color:#135f2c;padding:8px 12px;border-radius:999px;font-weight:900;font-size:12px}}main{{max-width:1500px;margin:auto;padding:20px 12px 60px}}.notice{{background:#e4f5e9;border:1px solid #92cda5;border-radius:14px;padding
