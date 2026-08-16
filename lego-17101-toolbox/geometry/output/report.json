@@ -1,0 +1,86 @@
+{
+  "unique_design_ids": 196,
+  "mapped_design_ids": 193,
+  "exact_filename_matches": 155,
+  "mapping_status_counts": {
+    "exact": 155,
+    "prefix": 1,
+    "design_alias": 33,
+    "missing": 3,
+    "relationship_alias": 4
+  },
+  "missing_design_ids": [
+    "34297",
+    "34298",
+    "34300"
+  ],
+  "offset_mm_per_side": 0.1,
+  "inventory_rows": 218,
+  "inventory_pieces": 850,
+  "colour_floor_area_mm2": {
+    "Black": 47300.51,
+    "White": 32723.82,
+    "Dark Azur": 19642.05,
+    "Dark Stone Grey": 13917.09,
+    "Bright Orange": 11334.29,
+    "Medium Stone Grey": 11284.95,
+    "Bright Red": 7062.72,
+    "Bright Yellow": 4358.96,
+    "Multicombination": 3625.24,
+    "Brick Yellow": 2755.42,
+    "Bright Blue": 2169.68,
+    "Flame Yellowish Orange": 1431.07,
+    "Transparent Bright Orange": 1310.65,
+    "Dark Green": 1310.44,
+    "Reddish Brown": 1158.4,
+    "Medium Azur": 816.25,
+    "Bright Yellowish Green": 816.24,
+    "Light Purple": 664.04,
+    "Transparent Light Blue": 408.23,
+    "Transparent Blue": 323.2,
+    "Transparent Red": 323.2,
+    "Sand Yellow": 310.4,
+    "Silver Metallic": 287.25
+  },
+  "recommended_area_balanced_trays": {
+    "A": {
+      "colours": [
+        "Black",
+        "Multicombination",
+        "Bright Blue",
+        "Reddish Brown",
+        "Transparent Light Blue",
+        "Transparent Blue",
+        "Silver Metallic"
+      ],
+      "floor_area_mm2": 55272.51
+    },
+    "B": {
+      "colours": [
+        "White",
+        "Bright Orange",
+        "Bright Red",
+        "Flame Yellowish Orange",
+        "Dark Green",
+        "Bright Yellowish Green",
+        "Transparent Red"
+      ],
+      "floor_area_mm2": 55001.78
+    },
+    "C": {
+      "colours": [
+        "Dark Azur",
+        "Dark Stone Grey",
+        "Medium Stone Grey",
+        "Bright Yellow",
+        "Brick Yellow",
+        "Transparent Bright Orange",
+        "Medium Azur",
+        "Light Purple",
+        "Sand Yellow"
+      ],
+      "floor_area_mm2": 55059.81
+    }
+  },
+  "ldraw_attribution": "Geometry derived from the LDraw Parts Library. Retain LDraw attribution and applicable license notices."
+}
