@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "lego-17101-toolbox/source_chunks/**"
+      - "lego-17101-toolbox/source_v2/**"
       - ".github/workflows/build-lego-17101-toolbox.yml"
 
 permissions:
@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,26 +33,42 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pillow requests urllib3
 
-      - name: Assemble and validate builder
+      - name: Assemble exact v2 builder
         run: |
-          cat lego-17101-toolbox/source_chunks/part_00.txt \
-              lego-17101-toolbox/source_chunks/part_01.txt \
-              lego-17101-toolbox/source_chunks/part_02.txt \
+          cat lego-17101-toolbox/source_v2/part_00.txt \
+              lego-17101-toolbox/source_v2/part_01.txt \
+              lego-17101-toolbox/source_v2/part_02.txt \
+              lego-17101-toolbox/source_v2/part_03.txt \
               > lego-17101-toolbox/build.py
           python -m py_compile lego-17101-toolbox/build.py
 
-      - name: Download, verify and render all 218 real LEGO part images
+      - name: Download verified 17101 inventory CSV
+        run: |
+          curl --fail --location --compressed \
+            --retry 8 --retry-all-errors --retry-delay 3 \
+            --user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/140 Safari/537.36" \
+            --output lego-17101-toolbox/inventory.csv \
+            "https://brickset.com/export/inventory/17101-1"
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          path = Path("lego-17101-toolbox/inventory.csv")
+          rows = list(csv.DictReader(path.open(encoding="utf-8-sig")))
+          print("inventory rows:", len(rows))
+          print("inventory pieces:", sum(int(row["Qty"]) for row in rows) if rows else 0)
+          assert len(rows) == 218
+          assert sum(int(row["Qty"]) for row in rows) == 850
+          PY
+
+      - name: Download, verify and self-host all real LEGO part images
         run: python lego-17101-toolbox/build.py
 
-      - name: Enforce release gate
+      - name: Enforce 218-image release gate
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-
-          report = json.loads(
-              Path("lego-17101-toolbox/reports/verification.json").read_text()
-          )["summary"]
+          report = json.loads(Path("lego-17101-toolbox/reports/verification.json").read_text())["summary"]
           print(report)
           assert report["total"] == 218
           assert report["success"] == 218
@@ -63,15 +79,12 @@ jobs:
               "lego-17101-toolbox/index.html",
               "lego-17101-toolbox/proof.html",
               "lego-17101-toolbox/static/proof-12.png",
-              "lego-17101-toolbox/static/tray-A.png",
-              "lego-17101-toolbox/static/tray-B.png",
-              "lego-17101-toolbox/static/tray-C.png",
-              "lego-17101-toolbox/static/overview.png",
           ]:
               assert Path(path).is_file(), path
+          assert len(list(Path("lego-17101-toolbox/images").glob("*.webp"))) == 218
           PY
 
-      - name: Commit self-hosted images and generated review site
+      - name: Commit generated site and 218 self-hosted images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -79,7 +92,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No generated changes to commit"
           else
-            git commit -m "build: self-host all LEGO 17101 images [skip ci]"
+            git commit -m "build: self-host 218 LEGO 17101 images [skip ci]"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
