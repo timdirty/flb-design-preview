@@ -1,0 +1,114 @@
+eep the exact SVG beside the atlas.
+            w, h = result.width_mm or 1, result.height_mm or 1
+            scale = min((cell_w - 28) / max(w, 1), (cell_h - 55) / max(h, 1))
+            rw, rh = w * scale, h * scale
+            draw.rounded_rectangle((x + (cell_w-rw)/2, y + 16 + (cell_h-55-rh)/2, x + (cell_w+rw)/2, y + 16 + (cell_h-55+rh)/2), radius=4, fill="#202428")
+        else:
+            draw.line((x+30,y+30,x+cell_w-30,y+cell_h-55), fill="#c33", width=4)
+            draw.line((x+cell_w-30,y+30,x+30,y+cell_h-55), fill="#c33", width=4)
+        draw.text((x+9, y+cell_h-34), result.design_id, font=font(14, True), fill="#111")
+        draw.text((x+9, y+cell_h-18), result.status, font=font(11), fill="#555")
+    canvas.save(output, optimize=True)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ldraw", type=Path, required=True)
+    parser.add_argument("--inventory", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--elements", type=Path)
+    parser.add_argument("--relationships", type=Path)
+    args = parser.parse_args()
+    args.output.mkdir(parents=True, exist_ok=True)
+    svg_dir = args.output / "svg"
+    svg_dir.mkdir(exist_ok=True)
+
+    inventory = list(csv.DictReader(args.inventory.open(encoding="utf-8-sig")))
+    design_ids = sorted({row["DesignID"] for row in inventory}, key=lambda value: (len(value), value))
+    library = LDraw(args.ldraw)
+    aliases = AliasResolver(args.elements, args.relationships)
+    rows_by_design: dict[str, list[dict]] = defaultdict(list)
+    for row in inventory:
+        rows_by_design[row["DesignID"]].append(row)
+    results: list[PartResult] = []
+    geometry_by_design: dict[str, dict] = {}
+
+    for index, design_id in enumerate(design_ids, 1):
+        source = None
+        mapping_status = "missing"
+        selected_candidate = None
+        alias_depth = None
+        # First pass requires exact/indexed candidate matches to avoid unrelated numeric prefixes.
+        candidate_list = list(aliases.candidates(design_id, rows_by_design[design_id]))
+        for candidate, candidate_source, depth in candidate_list:
+            found, found_status = library.part_path(candidate, allow_prefix=False)
+            if found is not None:
+                source = found
+                selected_candidate = candidate
+                alias_depth = depth
+                mapping_status = "exact" if candidate == design_id and found_status == "exact" else candidate_source
+                break
+        # Second pass allows suffix/prefix variants only after exact aliases have been exhausted.
+        if source is None:
+            for candidate, candidate_source, depth in candidate_list:
+                found, found_status = library.part_path(candidate, allow_prefix=True)
+                if found is not None:
+                    source = found
+                    selected_candidate = candidate
+                    alias_depth = depth
+                    if candidate == design_id:
+                        mapping_status = found_status
+                    else:
+                        mapping_status = candidate_source + "_" + found_status
+                    break
+        if source is None:
+            result = PartResult(design_id, "missing", None, None, None, None, None, None, None, "No LDraw or element/relationship alias part file")
+            results.append(result)
+            print(f"[{index:03d}/{len(design_ids)}] {design_id} missing", flush=True)
+            continue
+        triangles = library.triangles(source)
+        selected = choose_projection(triangles)
+        if selected is None:
+            result = PartResult(design_id, "no_faces", str(source.relative_to(args.ldraw)), None, None, None, None, None, None, "No projected polygon")
+            results.append(result)
+            print(f"[{index:03d}/{len(design_ids)}] {design_id} no_faces", flush=True)
+            continue
+        _, axis, geom, width, height, thickness = selected
+        svg_path = svg_dir / f"{design_id}.svg"
+        buffered_w, buffered_h = write_svg(geom, width, height, svg_path)
+        status = "exact" if mapping_status == "exact" else mapping_status
+        result = PartResult(design_id, status, str(source.relative_to(args.ldraw)), AXIS_NAMES[axis], round(buffered_w, 3), round(buffered_h, 3), round(thickness, 3), round(geom.area, 3), str(svg_path.relative_to(args.output)))
+        results.append(result)
+        geometry_by_design[design_id] = {
+            "width_mm": buffered_w,
+            "height_mm": buffered_h,
+            "thickness_mm": thickness,
+            "projection": AXIS_NAMES[axis],
+            "source_file": str(source.relative_to(args.ldraw)),
+            "status": status,
+            "resolved_candidate": selected_candidate,
+            "alias_depth": alias_depth,
+        }
+        print(f"[{index:03d}/{len(design_ids)}] {design_id} {status} {buffered_w:.1f}x{buffered_h:.1f}x{thickness:.1f}", flush=True)
+
+    rows_out = []
+    colour_area: dict[str, float] = {}
+    for row in inventory:
+        geom = geometry_by_design.get(row["DesignID"])
+        if geom:
+            width, height, thickness = geom["width_mm"], geom["height_mm"], geom["thickness_mm"]
+            mode, depth = storage_mode(row, width, height, thickness)
+            floor_w = max(16.0, width + 4.0)
+            floor_h = max(16.0, height + 4.0)
+        else:
+            width = height = thickness = None
+            mode, depth = "manual_review", 20.0
+            floor_w = floor_h = 24.0
+        floor_area = floor_w * floor_h
+        colour_area[row["Colour"]] = colour_area.get(row["Colour"], 0.0) + floor_area
+        rows_out.append({
+            **row,
+            "GeometryStatus": geom["status"] if geom else "missing",
+            "Projection": geom["projection"] if geom else "",
+            "WidthMM": round(width, 3) if width is not None else "",
+            "HeightMM": round(height, 3) if height is not None else 
